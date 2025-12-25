@@ -3,7 +3,7 @@
 
 Install Directions:
 
-wget https://github.com/Deadboy666/h3adcr-b/blob/main/headcrab
+wget https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab
 
 chmod +x ./headcrab
 
