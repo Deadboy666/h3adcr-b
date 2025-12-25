@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+set -eu
+
+    #paths
+    SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+    SteamInstallDir=$HOME/.steam/steam
+    SLSsteamInstallDir=$HOME/.local/share/SLSsteam
+    SLSsteamConfigDir=$HOME/.config/SLSsteam
+    InstallDir=$SCRIPT_DIR/bin
+    RepoSLSsteamLocation=/usr/lib32
+
+    checkforsteamcfg(){
+    cd $SteamInstallDir/
+    echo "the headcrab approaches.."
+    if [ -f "steam.cfg" ]; then
+        rm steam.cfg
+        echo "the headcrab lactches on the steam process.."
+        latchonhost
+
+    else
+        latchonhost
+    fi
+        conditioncheck
+        }
+
+        latchonhost(){
+        export_sls steam steam://exit &> /dev/null & wait
+        }
+
+    downloadSLSsteam(){
+        echo "Downloading Latest SLSsteam.."
+        cd $SCRIPT_DIR/
+        wget -O SLSsteam-Any.7z \
+    $(curl -s https://api.github.com/repos/AceSLS/SLSsteam/releases/latest \
+    | grep "browser_download_url" \
+    | grep "SLSsteam-Any.7z" \
+    | cut -d '"' -f 4)
+    }
+    export_sls(){
+        if [ -f "$RepoSLSsteamLocation/libSLSsteam.so" ]; then
+                echo "Using Repo Location"
+                LD_AUDIT=$RepoSLSsteamLocation/libSLSsteam.so "$@"
+        else
+                InstallSLSsteam
+                LD_AUDIT=$SLSsteamInstallDir/SLSsteam.so "$@"
+                fi
+                }
+
+    extractSLSsteam(){
+        downloadSLSsteam && sleep 1s
+         7z x $SCRIPT_DIR/SLSsteam-Any.7z -aoa
+         rm -rf tools
+         rm -rf res
+         rm setup.sh
+         rm -rf docs
+         rm SLSsteam-Any.7z
+         echo "SLSsteam Downloaded: Latest"
+         }
+
+    copySLSsteam(){
+        extractSLSsteam
+        cp $InstallDir/SLSsteam.so $SLSsteamInstallDir/
+        }
+
+    InstallSLSsteam(){
+        echo "Installing SLSsteam..."
+        if [ -d "$SLSsteamInstallDir" ]; then
+          copySLSsteam
+        else
+            mkdir -p $SLSsteamInstallDir
+            copySLSsteam
+        fi
+        }
+
+    editconfig(){
+        cd $SLSsteamConfigDir/
+            if grep -q -F "PlayNotOwnedGames: no" "config.yaml"; then
+                sed -i "s/^PlayNotOwnedGames:.*/PlayNotOwnedGames: yes/" config.yaml
+                echo "PlayNotOwnedGames: Enabled"
+            else
+                echo "PlayNotOwnedGames: Enabled"
+                fi
+            }
+
+    createsteamcfg(){
+    cd $SteamInstallDir/
+    if [ -f "steam.cfg" ]; then
+        rm steam.cfg
+    else
+        cat << 'EOF' > steam.cfg
+BootStrapperInhibitAll=enable
+BootStrapperForceSelfUpdate=disable
+EOF
+    fi
+        echo "BlockedClientUpdates: Enabled"
+    }
+
+    patchsteam(){
+        if [ -f "$RepoSLSsteamLocation/libSLSsteam.so" ]; then
+                patchreposteam
+        else
+                patchlocalsteam
+        fi
+        }
+
+    patchreposteam(){
+        cd $SteamInstallDir/
+        if grep -q -F "export LD_AUDIT=/usr/lib32/libSLSsteam.so" "steam.sh"; then
+            echo  "Steam Runner Script Already Patched ,Skipping..."
+        else
+            sed -i '10a export LD_AUDIT=/usr/lib32/libSLSsteam.so' steam.sh
+        fi
+            echo "SLSSteamInstallType: System"
+        }
+
+    patchlocalsteam(){
+        cd $SteamInstallDir/
+        if grep -q -F "export LD_AUDIT=$HOME/.local/share/SLSsteam/SLSsteam.so" "steam.sh"; then
+            echo "Steam Runner Script Already Patched ,Skipping..."
+        else
+            sed -i '10a export LD_AUDIT=$HOME/.local/share/SLSsteam/SLSsteam.so' steam.sh
+        fi
+            echo "SLSSteamInstallType: Local"
+        }
+
+        conditioncheck(){
+            echo "Checking Conditions..."
+            editconfig
+            createsteamcfg
+            patchsteam
+            echo "HeadcrabStatus: Patched"
+            }
+
+    main(){
+        checkforsteamcfg
+        }
+
+    main
+
+
+
+
+
+
