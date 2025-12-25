@@ -6,7 +6,6 @@ set -eu
     SteamInstallDir=$HOME/.steam/steam
     SLSsteamInstallDir=$HOME/.local/share/SLSsteam
     SLSsteamConfigDir=$HOME/.config/SLSsteam
-    InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
 
     checkforsteamcfg(){
