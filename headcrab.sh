@@ -15,6 +15,7 @@ set -eu
     cd $SteamInstallDir/
     if [ -f "steam.cfg" ]; then
         rm steam.cfg
+        killall steam || true
         Linklibraries
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
