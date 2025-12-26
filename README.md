@@ -9,6 +9,6 @@ then follow steps
 
 wget https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab.sh
 
-chmod +x ./headcrab
+chmod +x ./headcrab.sh
 
-./headcrab
+./headcrab.sh
