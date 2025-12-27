@@ -44,12 +44,12 @@ set -eu
 
     extractSLSsteam(){
         downloadSLSsteam
-         7z x $SCRIPT_DIR/SLSsteam-Any.7z -aoa
+         7z x $SCRIPT_DIR/"SLSsteam 2020251226083318.7z" -aoa
          rm -rf tools
          rm -rf res
          rm setup.sh
          rm -rf docs
-         rm SLSsteam-Any.7z
+         rm "SLSsteam 2020251226083318.7z"
          mv updates.yaml $SLSsteamConfigDir/
          echo "SLSsteam Downloaded: Latest"
          }
