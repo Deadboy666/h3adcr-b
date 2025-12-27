@@ -30,7 +30,7 @@ set -eu
         echo "Downloading Latest SLSsteam.."
         cd $SCRIPT_DIR/
         wget $HASHFETCH
-        wget https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/SLSsteam%2020251226083318.7z
+        wget https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/SLSsteam-20251226083318.7z
     }
     export_sls(){
         if [ -f "$RepoSLSsteamLocation/libSLSsteam.so" ]; then
@@ -44,7 +44,7 @@ set -eu
 
     extractSLSsteam(){
         downloadSLSsteam
-         7z x $SCRIPT_DIR/"SLSsteam 2020251226083318.7z" -aoa
+         7z x $SCRIPT_DIR/SLSsteam-20251226083318.7z -aoa
          rm -rf tools
          rm -rf res
          rm setup.sh
