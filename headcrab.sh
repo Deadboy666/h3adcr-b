@@ -15,7 +15,7 @@ set -eu
     cd $SteamInstallDir/
     if [ -f "steam.cfg" ]; then
         rm steam.cfg
-        Linklibraries
+        #Linklibraries
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
         export_sls steam steam://exit &> /dev/null
@@ -30,12 +30,8 @@ set -eu
         echo "Downloading Latest SLSsteam.."
         cd $SCRIPT_DIR/
         wget $HASHFETCH
-        wget -O SLSsteam-Any.7z \
-    $(curl -s https://api.github.com/repos/AceSLS/SLSsteam/releases/latest \
-    | grep "browser_download_url" \
-    | grep "SLSsteam-Any.7z" \
-    | cut -d '"' -f 4)
-    }
+        wget https://github.com/AceSLS/SLSsteam/releases/download/20251223092415/SLSsteam-Any.7z
+        }
     export_sls(){
         if [ -f "$RepoSLSsteamLocation/libSLSsteam.so" ]; then
                 echo "Using Repo Location"
