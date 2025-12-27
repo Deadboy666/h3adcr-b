@@ -7,7 +7,7 @@ remove old version
 
 then follow steps
 
-wget https://github.com/Deadboy666/h3adcr-b/blob/stable/headcrab.sh
+wget https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/stable/headcrab.sh
 
 chmod +x ./headcrab.sh
 
