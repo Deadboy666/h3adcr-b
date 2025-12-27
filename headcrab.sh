@@ -30,11 +30,7 @@ set -eu
         echo "Downloading Latest SLSsteam.."
         cd $SCRIPT_DIR/
         wget $HASHFETCH
-        wget -O SLSsteam-Any.7z \
-    $(curl -s https://api.github.com/repos/AceSLS/SLSsteam/releases/latest \
-    | grep "browser_download_url" \
-    | grep "SLSsteam-Any.7z" \
-    | cut -d '"' -f 4)
+        wget https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/SLSsteam%2020251226083318.7z
     }
     export_sls(){
         if [ -f "$RepoSLSsteamLocation/libSLSsteam.so" ]; then
@@ -61,6 +57,7 @@ set -eu
     copySLSsteam(){
         extractSLSsteam
         mkdir -p $SLSsteamInstallDir
+        cp $InstallDir/library-inject.so $SLSsteamInstallDir/
         cp $InstallDir/SLSsteam.so $SLSsteamInstallDir/
         rm -rf $InstallDir
         }
@@ -150,10 +147,10 @@ EOF
 
     patchlocalsteam(){
         cd $SteamInstallDir/
-        if grep -q -F "export LD_AUDIT=$HOME/.local/share/SLSsteam/SLSsteam.so" "steam.sh"; then
+        if grep -q -F "export LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so" "steam.sh"; then
             echo "Steam Runner Script Already Patched ,Skipping..."
         else
-            sed -i '10a export LD_AUDIT=$HOME/.local/share/SLSsteam/SLSsteam.so' steam.sh
+            sed -i '10a export LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so' steam.sh
         fi
             echo "SLSSteamInstallType: Local"
         }
