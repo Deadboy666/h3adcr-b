@@ -15,7 +15,7 @@ set -eu
     cd $SteamInstallDir/
     if [ -f "steam.cfg" ]; then
         rm steam.cfg
-        Purgepreviousversion
+        #Purgepreviousversion
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
         export_sls steam steam://exit &> /dev/null
