@@ -75,8 +75,8 @@ set -eu
         Purgepreviousversion(){
         echo "symlinking.."
         cd $SLSsteamInstallDir
-        if [ -d "$SLSsteamInstallDir" ]; then
-          rm SLSsteam.so
+        if [ -f "$SLSsteamInstallDir/SLSsteam.so" ]; then
+          rm $SLSsteamInstallDir/SLSsteam.so
         else
            echo "" &> /dev/null
         fi
