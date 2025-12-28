@@ -31,7 +31,7 @@ set -eu
         cd $SCRIPT_DIR/
         wget $HASHFETCH
         wget -O SLSsteam-Any.7z \
-    $(curl -s https://api.github.com/repos/AceSLS/SLSsteam/releases/latest \
+    $(curl -s "https://api.github.com/repos/AceSLS/SLSsteam/releases/latest" \
     | grep "browser_download_url" \
     | grep "SLSsteam-Any.7z" \
     | cut -d '"' -f 4)
