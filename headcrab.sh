@@ -15,7 +15,7 @@ set -eu
     cd $SteamInstallDir/
     if [ -f "steam.cfg" ]; then
         rm steam.cfg
-        Purgepreviousversion
+        killall steam || true
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
         export_sls steam steam://exit &> /dev/null
@@ -42,7 +42,7 @@ set -eu
                 LD_AUDIT=$RepoSLSsteamLocation/libSLSsteam.so "$@"
         else
                 copySLSsteam
-                LD_AUDIT=$SLSsteamInstallDir/SLSsteam.so "$@"
+                LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so "$@"
                 fi
                 }
 
@@ -61,6 +61,7 @@ set -eu
     copySLSsteam(){
         extractSLSsteam
         mkdir -p $SLSsteamInstallDir
+        cp $InstallDir/library-inject.so $SLSsteamInstallDir/
         cp $InstallDir/SLSsteam.so $SLSsteamInstallDir/
         rm -rf $InstallDir
         }
@@ -76,9 +77,9 @@ set -eu
         }
 
         Purgepreviousversion(){
-        echo "symlinking.."
+        echo "Purging Previous Version"
         cd $SLSsteamInstallDir
-        if [ -d "$SLSsteamInstallDir" ]; then
+        if [ -f "$SLSsteamInstallDir/SLSsteam.so" ]; then
           rm SLSsteam.so
         else
            echo "" &> /dev/null
@@ -150,10 +151,10 @@ EOF
 
     patchlocalsteam(){
         cd $SteamInstallDir/
-        if grep -q -F "export LD_AUDIT=$HOME/.local/share/SLSsteam/SLSsteam.so" "steam.sh"; then
+        if grep -q -F "export LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so" "steam.sh"; then
             echo "Steam Runner Script Already Patched ,Skipping..."
         else
-            sed -i '10a export LD_AUDIT=$HOME/.local/share/SLSsteam/SLSsteam.so' steam.sh
+            sed -i '10a export LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so' steam.sh
         fi
             echo "SLSSteamInstallType: Local"
         }
@@ -168,6 +169,7 @@ EOF
 
     main(){
         backupconfig
+        Purgepreviousversion
         checkforsteamcfg
         }
 
