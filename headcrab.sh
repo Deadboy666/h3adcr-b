@@ -39,7 +39,7 @@ set -eu
     export_sls(){
         if [ -f "$RepoSLSsteamLocation/libSLSsteam.so" ]; then
                 echo "Using Repo Location"
-                LD_AUDIT=$RepoSLSsteamLocation/libSLSsteam.so "$@"
+                LD_AUDIT=$RepoSLSsteamLocation/libSLS-library-inject.so:$RepoSLSsteamLocation/libSLSsteam.so "$@"
         else
                 copySLSsteam
                 LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so "$@"
@@ -141,10 +141,10 @@ EOF
 
     patchreposteam(){
         cd $SteamInstallDir/
-        if grep -q -F "export LD_AUDIT=/usr/lib32/libSLSsteam.so" "steam.sh"; then
+        if grep -q -F "export LD_AUDIT=$RepoSLSsteamLocation/libSLS-library-inject.so:$RepoSLSsteamLocation/libSLSsteam.so" "steam.sh"; then
             echo  "Steam Runner Script Already Patched ,Skipping..."
         else
-            sed -i '10a export LD_AUDIT=/usr/lib32/libSLSsteam.so' steam.sh
+            sed -i '10a export LD_AUDIT=$RepoSLSsteamLocation/libSLS-library-inject.so:$RepoSLSsteamLocation/libSLSsteam.so' steam.sh
         fi
             echo "SLSSteamInstallType: System"
         }
