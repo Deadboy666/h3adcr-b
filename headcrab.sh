@@ -141,10 +141,10 @@ EOF
 
     patchreposteam(){
         cd $SteamInstallDir/
-        if grep -q -F "export LD_AUDIT=$RepoSLSsteamLocation/libSLS-library-inject.so:$RepoSLSsteamLocation/libSLSsteam.so" "steam.sh"; then
+        if grep -q -F "export LD_AUDIT=/usr/lib32/libSLS-library-inject.so:/usr/lib32/libSLSsteam.so" "steam.sh"; then
             echo  "Steam Runner Script Already Patched ,Skipping..."
         else
-            sed -i '10a export LD_AUDIT=$RepoSLSsteamLocation/libSLS-library-inject.so:$RepoSLSsteamLocation/libSLSsteam.so' steam.sh
+            sed -i '10a export LD_AUDIT=/usr/lib32/libSLS-library-inject.so:/usr/lib32/libSLSsteam.so' steam.sh
         fi
             echo "SLSSteamInstallType: System"
         }
