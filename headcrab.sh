@@ -39,7 +39,7 @@ set -eu
     export_sls(){
         if [ -f "$RepoSLSsteamLocation/libSLSsteam.so" ]; then
                 echo "Using Repo Location"
-                LD_AUDIT=$RepoSLSsteamLocation/libSLS-library-inject.so:$RepoSLSsteamLocation/libSLSsteam.so "$@"
+                LD_AUDIT=/usr/lib32/libSLS-library-inject.so:/usr/lib32/libSLSsteam.so "$@"
         else
                 copySLSsteam
                 LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so "$@"
