@@ -8,9 +8,19 @@ set -eu
     SLSsteamConfigDir=$HOME/.config/SLSsteam
     InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
-
     HASHFETCH=https://raw.githubusercontent.com/AceSLS/SLSsteam/refs/heads/main/res/updates.yaml
-
+     
+     doesprepathsexists?(){
+        
+        if [ -d "$SLSsteamInstallDir" ]; then
+            echo "Detected Previous Path"
+    else
+            mkdir -p $SLSsteamInstallDir
+            mkdir -p $SLSConfigDir
+        fi
+            echo "" &> /dev/null
+            }
+            
     checkforsteamcfg(){
     cd $SteamInstallDir/
     if [ -f "steam.cfg" ]; then
@@ -60,7 +70,6 @@ set -eu
 
     copySLSsteam(){
         extractSLSsteam
-        mkdir -p $SLSsteamInstallDir
         cp $InstallDir/library-inject.so $SLSsteamInstallDir/
         cp $InstallDir/SLSsteam.so $SLSsteamInstallDir/
         rm -rf $InstallDir
@@ -168,6 +177,7 @@ EOF
             }
 
     main(){
+        doesprepathsexist?
         backupconfig
         Purgepreviousversion
         checkforsteamcfg
