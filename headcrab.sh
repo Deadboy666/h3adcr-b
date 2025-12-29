@@ -16,7 +16,7 @@ set -eu
             echo "Detected Previous Path"
     else
             mkdir -p $SLSsteamInstallDir
-            mkdir -p $SLSConfigDir
+            mkdir -p $SLSsteamConfigDir
         fi
             echo "" &> /dev/null
             }
