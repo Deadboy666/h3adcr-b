@@ -9,17 +9,6 @@ set -eu
     InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
     HASHFETCH=https://raw.githubusercontent.com/AceSLS/SLSsteam/refs/heads/main/res/updates.yaml
-     
-     doesprepathsexists?(){
-        
-        if [ -d "$SLSsteamInstallDir" ]; then
-            echo "Detected Previous Path"
-    else
-            mkdir -p $SLSsteamInstallDir
-            mkdir -p $SLSsteamConfigDir
-        fi
-            echo "" &> /dev/null
-            }
             
     checkforsteamcfg(){
     cd $SteamInstallDir/
@@ -87,6 +76,8 @@ set -eu
 
         Purgepreviousversion(){
         echo "Purging Previous Version"
+        mkdir -p $SLSsteamInstallDir
+        mkdir -p $SLSsteamConfigDir
         cd $SLSsteamInstallDir
         if [ -f "$SLSsteamInstallDir/SLSsteam.so" ]; then
           rm SLSsteam.so
@@ -177,7 +168,6 @@ EOF
             }
 
     main(){
-        doesprepathsexist?
         backupconfig
         Purgepreviousversion
         checkforsteamcfg
