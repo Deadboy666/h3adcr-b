@@ -136,7 +136,7 @@ set -eu
             if grep -q -F "PlayNotOwnedGames: no" "config.yaml"; then
                 sed -i "s/^PlayNotOwnedGames:.*/PlayNotOwnedGames: yes/" config.yaml
                 sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
-                sed -i "/FakeAppIds:/a\\  0: 480" config.yaml
+                sed -i "/^FakeAppIds:/a\\  0: 480" config.yaml
                 echo "PlayNotOwnedGames: Enabled"
                 echo "FakeAppIdGlobal: Enabled"
                 echo "SafeMode: Enabled"
