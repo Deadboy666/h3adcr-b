@@ -121,8 +121,18 @@ set -eu
             backupconfig
         }
 
-    backupconfig(){
+    plsdontbreakthingsthatwork(){
         whereSLSsteamconfig
+        if [ -f "config.bak" ]; then
+            mv config.bak config.yaml
+    else
+            echo "" &> /dev/null
+        fi
+            echo "" &> /dev/null
+            }
+            
+    backupconfig(){
+        plsdontbreakthingsthatwork
         if [ -f "config.yaml" ]; then
             mv config.yaml config.yaml.bak
     else
