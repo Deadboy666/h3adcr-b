@@ -24,13 +24,13 @@ set -eu
     wheresteamdir(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
                 mkdir -p $FlatpakSLSsteamInstallDir
-                cp $InstallDir/library-inject.so $FlatpakSLSsteamInstallDir/
-                cp $InstallDir/SLSsteam.so $FlatpakSLSsteamInstallDir/ 
+                cp -f $InstallDir/library-inject.so $FlatpakSLSsteamInstallDir/
+                cp -f $InstallDir/SLSsteam.so $FlatpakSLSsteamInstallDir/ 
         else
                  mkdir -p $SLSsteamInstallDir
                  mkdir -p $SLSsteamConfigDir
-                 cp $InstallDir/library-inject.so $SLSsteamInstallDir/
-                 cp $InstallDir/SLSsteam.so $SLSsteamInstallDir/
+                 cp -f $InstallDir/library-inject.so $SLSsteamInstallDir/
+                 cp -f $InstallDir/SLSsteam.so $SLSsteamInstallDir/
             fi
                 echo "" &> /dev/null
             }
