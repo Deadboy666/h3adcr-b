@@ -62,9 +62,9 @@ set -eu
         killall wheresteam || true
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
-        export_sls wheresteam steam://exit &> /dev/null
+        export_sls wheresteam -clearbeta steam://exit &> /dev/null
     else
-        export_sls wheresteam steam://exit &> /dev/null
+        export_sls wheresteam -clearbeta steam://exit &> /dev/null
     fi
         conditioncheck
         }
