@@ -11,7 +11,11 @@ set -eu
     SLSsteamConfigDir=$HOME/.config/SLSsteam
     InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
-    ClientManifest=http://web.archive.org/web/20251220095344if_/media.steampowered.com/client
+    ClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_ubuntu12"
+    Headcrab_Downgrade_URL="http://localhost:1666/"
+    Headcrab_Downgrader_Path=$HOME/.headcrab
+    dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dgsc"
+    
     
     wheresteam(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
@@ -63,9 +67,9 @@ set -eu
         killall wheresteam || true
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$ClientManifest" -exitsteam &> /dev/null
+        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
     else
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$ClientManifest" -exitsteam &> /dev/null
+        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
     fi
         conditioncheck
         }
