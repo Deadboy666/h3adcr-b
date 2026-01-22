@@ -11,7 +11,7 @@ set -eu
     SLSsteamConfigDir=$HOME/.config/SLSsteam
     InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
-    ClientManifest=https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_ubuntu12
+    ClientManifest=http://web.archive.org/web/20251220095344if_/media.steampowered.com/client
     
     wheresteam(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
