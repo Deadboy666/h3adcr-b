@@ -11,6 +11,7 @@ set -eu
     SLSsteamConfigDir=$HOME/.config/SLSsteam
     InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
+    ClientManifest=https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_ubuntu12
     
     wheresteam(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
@@ -62,9 +63,9 @@ set -eu
         killall wheresteam || true
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
-        export_sls wheresteam -clearbeta steam://exit &> /dev/null
+        export_sls wheresteam -clearbeta -forcesteamupdate -forcepackagedownload -overridepackageurl "$ClientManifest" -exitsteam steam://exit &> /dev/null
     else
-        export_sls wheresteam -clearbeta steam://exit &> /dev/null
+        export_sls wheresteam -clearbeta -forcesteamupdate -forcepackagedownload -overridepackageurl "$ClientManifest" -exitsteam steam://exit &> /dev/null
     fi
         conditioncheck
         }
