@@ -63,9 +63,9 @@ set -eu
         killall wheresteam || true
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$ClientManifest" -exitsteam && wheresteam steam://exit &> /dev/null
+        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$ClientManifest" -exitsteam &> /dev/null
     else
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$ClientManifest" -exitsteam && wheresteam steam://exit &> /dev/null
+        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$ClientManifest" -exitsteam &> /dev/null
     fi
         conditioncheck
         }
