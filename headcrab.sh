@@ -74,11 +74,7 @@ set -eu
     downloadSLSsteam(){
         echo "Downloading Latest SLSsteam.."
         cd $SCRIPT_DIR/
-        wget -O SLSsteam-Any.7z \
-    $(curl -s "https://api.github.com/repos/AceSLS/SLSsteam/releases/latest" \
-    | grep "browser_download_url" \
-    | grep "SLSsteam-Any.7z" \
-    | cut -d '"' -f 4)
+        wget "https://github.com/AceSLS/SLSsteam/releases/download/20260115092113/SLSsteam-Any.7z"
     }
     
     export_sls(){
@@ -146,7 +142,7 @@ set -eu
         whereSLSsteamconfig
             if grep -q -F "PlayNotOwnedGames: no" "config.yaml"; then
                 sed -i "s/^PlayNotOwnedGames:.*/PlayNotOwnedGames: yes/" config.yaml
-                sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
+                sed -i "s/^SafeMode:.*/SafeMode: no/" config.yaml
                 echo "PlayNotOwnedGames: Enabled"
                 echo "SafeMode: Enabled"
             else
