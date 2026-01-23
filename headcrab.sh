@@ -49,6 +49,7 @@ set -eu
 do
     wget "$line"
 done
+    rm sources.txt
     dgsc
         }
         
@@ -57,6 +58,14 @@ done
         checkforsteamcfg
         }
         
+    nuketheclient(){
+        if [ -d "$FlatpakSteamInstallDir" ]; then
+                flatpak kill com.valvesoftware.Steam
+        else
+                killall steam | true
+            fi
+                echo "" &> /dev/null
+            }
         
     wheresteam(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
@@ -105,7 +114,7 @@ done
     wheresteamcfg
     if [ -f "steam.cfg" ]; then
         rm steam.cfg
-        killall wheresteam || true
+        nuketheclient
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
         export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
