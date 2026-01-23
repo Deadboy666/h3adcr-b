@@ -17,6 +17,21 @@ set -eu
     Headcrab_Downgrader_Path=$HOME/.headcrab
     dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dgsc"
     Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/sources.txt"
+
+    steamoscheck(){
+    [ -f /etc/os-release ] && source /etc/os-release && [ "${ID:-}" = "steamos" ]
+    }
+    
+    DownloadClientManifest(){
+        if steamoscheck; then
+        echo "Headcrab Downloading Steamos Client Manifest.."
+        wget "$DeckClientManifest" &> /dev/null
+    else
+        echo "Headcrab Downloading Linux Client Manifest.."
+        wget "$LinuxClientManifest" &> /dev/null
+    fi
+        echo "Client Manifest Downloaded"
+    }
     
     download_dgsc(){
         mkdir -p $Headcrab_Downgrader_Path
@@ -44,7 +59,7 @@ set -eu
         rm package/*
         cd package/
         wget "$Sources" &> /dev/null
-        wget "$ClientManifest" &> /dev/null
+        DownloadClientManifest
         echo "Fetching Client Update With Headcrab.."
         cat sources.txt | while read line;
 do
