@@ -13,12 +13,7 @@ set -eu
     RepoSLSsteamLocation=/usr/lib32
     
     nuketheclient(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
-                flatpak kill com.valvesoftware.Steam
-        else
-                killall -9 steam | true
-            fi
-                echo "" &> /dev/null
+                killall steam | true
             }
             
     wheresteamdir(){
