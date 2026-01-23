@@ -20,9 +20,14 @@ set -eu
     download_dgsc(){
         mkdir -p $Headcrab_Downgrader_Path
         cd $Headcrab_Downgrader_Path/
-        echo "Downloading Headcrab_dgsc.."
-        wget "$dgsc"
-        chmod +x dgsc
+        if [ -f "$Headcrab_Downgrader_Path/dgsc" ]; then
+            echo "Headcrab_dgsc Downloaded Already."
+        else
+            echo "Downloading Headcrab_dgsc.."
+            wget "$dgsc"
+            chmod +x dgsc
+        fi
+          echo "" &> /dev/null
         }
         
     dgsc(){
@@ -106,6 +111,7 @@ done
     else
         export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam 
     fi
+        killall dgsc
         conditioncheck
         }
 
