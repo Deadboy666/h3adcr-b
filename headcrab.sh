@@ -80,7 +80,7 @@ done
         
     wheresteam(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
-                com.valvesoftware.Steam "$@"
+                flatpak com.valvesoftware.Steam "$@"
         else
                 steam "$@"
             fi
