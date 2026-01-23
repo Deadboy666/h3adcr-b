@@ -42,8 +42,9 @@ set -eu
         wheresteamcfg
         rm package/*
         cd package/
-        wget "$Sources"
-        wget "$ClientManifest"
+        wget "$Sources" &> /dev/null
+        wget "$ClientManifest" &> /dev/null
+        echo "Fetching Client Update With Headcrab.."
         cat sources.txt | while read line;
 do
     wget "$line"
@@ -107,9 +108,9 @@ done
         killall wheresteam || true
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam 
+        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
     else
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam 
+        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
     fi
         killall dgsc
         conditioncheck
