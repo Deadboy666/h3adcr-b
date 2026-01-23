@@ -76,7 +76,7 @@ done
         
     nuketheclient(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
-                flatpak kill com.valvesoftware.Steam
+                flatpak kill com.valvesoftware.Steam | true
         else
                 killall steam | true
             fi
