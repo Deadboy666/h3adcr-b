@@ -126,18 +126,23 @@ done
                 echo "" &> /dev/null
             }
             
+    overideupdate(){
+        if steamoscheck; then
+            echo "Steamos Detected"
+           export_sls wheresteam -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+        else
+            export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+        fi
+            killall dgsc
+            }
+            
     checkforsteamcfg(){
     wheresteamcfg
-    if [ -f "steam.cfg" ]; then
         rm steam.cfg
         nuketheclient
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
-    else
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
-    fi
-        killall dgsc
+        overideupdate
         conditioncheck
         }
 
