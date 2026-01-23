@@ -138,7 +138,11 @@ done
             
     checkforsteamcfg(){
     wheresteamcfg
+    if [ -f "steam.cfg" ]; then
         rm steam.cfg
+    else
+        echo "Pre Exisiting Steam.cfg"
+    fi
         nuketheclient
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
