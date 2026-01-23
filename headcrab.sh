@@ -15,8 +15,30 @@ set -eu
     Headcrab_Downgrade_URL="http://localhost:1666/"
     Headcrab_Downgrader_Path=$HOME/.headcrab
     dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dgsc"
+    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/sources.txt"
     
-    
+    download_dgsc(){
+        mkdir -p $Headcrab_Downgrader_Path
+        cd $Headcrab_Downgrader_Path/
+        wget $dgsc
+        chmod +x dgsc
+        }
+        
+    dgsc(){
+        echo "Running Headcrab_dgsc.."
+        $Headcrab_Downgrader_Path/dgsc --port 1666 --silent & sleep 1s "$@"
+        }
+        
+    prepdowngrade(){
+        wheresteamdir
+        rm package/*
+        cd package/
+        wget "$Sources"
+        wget "$ClientManifest"
+        }
+        
+        
+        
     wheresteam(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
                 com.valvesoftware.Steam "$@"
