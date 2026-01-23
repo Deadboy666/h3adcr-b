@@ -75,12 +75,7 @@ done
         }
         
     nuketheclient(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
-                flatpak kill com.valvesoftware.Steam | true
-        else
                 killall steam | true
-            fi
-                echo "" &> /dev/null
             }
         
     wheresteam(){
@@ -141,7 +136,7 @@ done
     if [ -f "steam.cfg" ]; then
         rm steam.cfg
     else
-        echo "Pre Exisiting Steam.cfg"
+        echo "No Pre Exisiting Steam.cfg"
     fi
         nuketheclient
         echo "the headcrab approaches.."
