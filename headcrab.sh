@@ -12,11 +12,11 @@ set -eu
     InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
     
-    wheresteam(){
+    nuketheclient(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
-                com.valvesoftware.Steam "$@"
+                flatpak kill com.valvesoftware.Steam
         else
-                steam "$@"
+                killall -9 steam | true
             fi
                 echo "" &> /dev/null
             }
@@ -59,7 +59,7 @@ set -eu
     wheresteamcfg
     if [ -f "steam.cfg" ]; then
         rm steam.cfg
-        killall wheresteam || true
+        nuketheclient
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
         export_sls wheresteam -clearbeta steam://exit &> /dev/null
