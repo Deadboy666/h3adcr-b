@@ -38,3 +38,4 @@ https://client-update.fastly.steamstatic.com/steam_ubuntu12.zip.vz.21bcfcb716135
 https://client-update.fastly.steamstatic.com/runtime_scout_ubuntu12.zip.7c0625e3098fd696056f65f8e66d1a75a266ed64
 https://client-update.fastly.steamstatic.com/runtime_steamrt_ubuntu12.zip.62fc8c82e1b59eef4ddbc72eef4e9900dbdb275f
 https://client-update.fastly.steamstatic.com/runtime_steamrt_ubuntu12.zip.vz.ef88c29ecfefd3d42c1a9a2fc1cc3bf5c3b89ec1_77977899
+https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_ubuntu12
