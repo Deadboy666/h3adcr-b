@@ -28,6 +28,8 @@ set -eu
     dgsc(){
         download_dgsc
         echo "Running Headcrab_dgsc.."
+        wheresteamcfg
+        cd package/
         $Headcrab_Downgrader_Path/dgsc --port 1666 --silent & sleep 1s "$@"
         }
         
