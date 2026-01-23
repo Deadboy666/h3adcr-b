@@ -20,23 +20,34 @@ set -eu
     download_dgsc(){
         mkdir -p $Headcrab_Downgrader_Path
         cd $Headcrab_Downgrader_Path/
-        wget $dgsc
+        echo "Downloading Headcrab_dgsc.."
+        wget "$dgsc"
         chmod +x dgsc
         }
         
     dgsc(){
+        download_dgsc
         echo "Running Headcrab_dgsc.."
         $Headcrab_Downgrader_Path/dgsc --port 1666 --silent & sleep 1s "$@"
         }
         
     prepdowngrade(){
-        wheresteamdir
+        wheresteamcfg
         rm package/*
         cd package/
         wget "$Sources"
         wget "$ClientManifest"
+        cat sources.txt | while read line;
+do
+    wget "$line"
+done
+    dgsc
         }
         
+    clientdowngrade(){
+        prepdowngrade
+        checkforsteamcfg
+        }
         
         
     wheresteam(){
@@ -89,9 +100,9 @@ set -eu
         killall wheresteam || true
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam 
     else
-        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+        export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam 
     fi
         conditioncheck
         }
@@ -244,7 +255,7 @@ patchflatpaksteam(){
 
     main(){
         backupconfig
-        checkforsteamcfg
+        clientdowngrade
         }
 
     main
