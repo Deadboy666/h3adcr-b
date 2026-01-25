@@ -17,8 +17,8 @@ Headcrab Features:
 
 Notes:
 
-If Using A Arch Based Distro While Headcrab Supports Patching With The Package.
+If Using Arch Based Distro While Headcrab Supports Patching With The SLSsteam Package.
 
-Make Sure You Install The Package Update Or Uninstall It Then Run Headcrab Normally.
+Make Sure You Install The SLSsteam Package Update Or Uninstall It Then Run Headcrab Normally.
 
-Headcrab Works Best With Local Installs To Support Majority Of Distros.
+Headcrab Works Best With Local Installs To Support Majority Of Distros/Installations.
