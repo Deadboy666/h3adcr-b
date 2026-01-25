@@ -1,5 +1,5 @@
-***WARNING: This Branch May Have Breaking Changes Only Use This One If You Know What Your Doing.***
+***Close Client Then Run For Some Fun***
 
 ```bash
-curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.sh" | bash
+curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab.sh" | bash
 ```
