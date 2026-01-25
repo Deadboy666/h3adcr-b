@@ -65,7 +65,7 @@ set -eu
         echo "Running Fetching Client Update Headcrab_dlm.."
         wheresteamcfg
         cd package/
-        $Headcrab_Downgrader_Path/dlm --input-file sources.txt --max-concurrent 128 | pv --timer
+        $Headcrab_Downgrader_Path/dlm --input-file sources.txt --max-concurrent 16 | pv --timer
         }
         
     dgsc(){
