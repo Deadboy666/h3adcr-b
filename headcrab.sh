@@ -162,7 +162,7 @@ set -eu
     fi
         nuketheclient
         echo "the headcrab approaches.."
-        echo "the headcrab lactches on the steam process.."
+        echo "the headcrab latches on the steam process.."
         overideupdate
         conditioncheck
         }
