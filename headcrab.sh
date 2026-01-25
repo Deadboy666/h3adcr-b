@@ -16,6 +16,7 @@ set -eu
     Headcrab_Downgrade_URL="http://localhost:1666/"
     Headcrab_Downgrader_Path=$HOME/.headcrab
     dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dgsc"
+    dlm="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dlm"
     Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/sources.txt"
 
     steamoscheck(){
@@ -46,6 +47,27 @@ set -eu
           echo "" &> /dev/null
         }
         
+        download_dlm(){
+        mkdir -p $Headcrab_Downgrader_Path
+        cd $Headcrab_Downgrader_Path/
+        if [ -f "$Headcrab_Downgrader_Path/dlm" ]; then
+            echo "Headcrab_dlm Downloaded Already."
+        else
+            echo "Downloading Headcrab_dlm.."
+            wget "$dlm"
+            chmod +x dlm
+        fi
+          echo "" &> /dev/null
+        }
+        
+        dlm(){
+        download_dlm
+        echo "Running Fetching Client Update Headcrab_dlm.."
+        wheresteamcfg
+        cd package/
+        $Headcrab_Downgrader_Path/dlm --input-file sources.txt --max-concurrent 128 | pv --timer
+        }
+        
     dgsc(){
         download_dgsc
         echo "Running Headcrab_dgsc.."
@@ -60,13 +82,7 @@ set -eu
         cd package/
         wget "$Sources" &> /dev/null
         DownloadClientManifest
-        echo "Fetching Client Update With Headcrab.."
-        cat sources.txt | while read line;
-do
-    wget "$line"
-done
-    rm sources.txt
-    dgsc
+        dlm
         }
         
     clientdowngrade(){
@@ -124,9 +140,12 @@ done
     overideupdate(){
         if steamoscheck; then
             echo "Steamos Detected"
+            echo "Headcrab Connecting to The Updater.."
+            dgsc
            export_sls wheresteam -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         else
             echo "Headcrab Connecting to The Updater.."
+            dgsc
             export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         fi
             killall dgsc
