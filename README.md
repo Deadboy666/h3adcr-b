@@ -17,4 +17,8 @@ Headcrab Features:
 
 Notes:
 
-If Using A Archbased Distro While Headcrab Supports Patching With The Package Make Sure You Install The Package Update Or Uninstall It Then Run Headcrab Normally.
+If Using A Arch Based Distro While Headcrab Supports Patching With The Package.
+
+Make Sure You Install The Package Update Or Uninstall It Then Run Headcrab Normally.
+
+Headcrab Works Best With Local Installs To Support Majority Of Distros.
