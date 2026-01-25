@@ -11,9 +11,80 @@ set -eu
     SLSsteamConfigDir=$HOME/.config/SLSsteam
     InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
+    LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_ubuntu12"
+    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_steamdeck_stable_ubuntu12"
+    Headcrab_Downgrade_URL="http://localhost:1666/"
+    Headcrab_Downgrader_Path=$HOME/.headcrab
+    dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dgsc"
+    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/sources.txt"
+
+    steamoscheck(){
+    [ -f /etc/os-release ] && source /etc/os-release && [ "${ID:-}" = "steamos" ]
+    }
     
+    DownloadClientManifest(){
+        if steamoscheck; then
+        echo "Headcrab Downloading Steamos Client Manifest.."
+        wget "$DeckClientManifest" &> /dev/null
+    else
+        echo "Headcrab Downloading Linux Client Manifest.."
+        wget "$LinuxClientManifest" &> /dev/null
+    fi
+        echo "Client Manifest Downloaded"
+    }
+    
+    download_dgsc(){
+        mkdir -p $Headcrab_Downgrader_Path
+        cd $Headcrab_Downgrader_Path/
+        if [ -f "$Headcrab_Downgrader_Path/dgsc" ]; then
+            echo "Headcrab_dgsc Downloaded Already."
+        else
+            echo "Downloading Headcrab_dgsc.."
+            wget "$dgsc"
+            chmod +x dgsc
+        fi
+          echo "" &> /dev/null
+        }
+        
+    dgsc(){
+        download_dgsc
+        echo "Running Headcrab_dgsc.."
+        wheresteamcfg
+        cd package/
+        $Headcrab_Downgrader_Path/dgsc --port 1666 --silent & sleep 1s "$@"
+        }
+        
+    prepdowngrade(){
+        wheresteamcfg
+        rm package/*
+        cd package/
+        wget "$Sources" &> /dev/null
+        DownloadClientManifest
+        echo "Fetching Client Update With Headcrab.."
+        cat sources.txt | while read line;
+do
+    wget "$line"
+done
+    rm sources.txt
+    dgsc
+        }
+        
+    clientdowngrade(){
+        prepdowngrade
+        checkforsteamcfg
+        }
+        
     nuketheclient(){
                 killall steam | true
+            }
+        
+    wheresteam(){
+        if [ -d "$FlatpakSteamInstallDir" ]; then
+                flatpak run com.valvesoftware.Steam "$@"
+        else
+                steam "$@"
+            fi
+                echo "" &> /dev/null
             }
             
     wheresteamdir(){
@@ -50,17 +121,29 @@ set -eu
                 echo "" &> /dev/null
             }
             
+    overideupdate(){
+        if steamoscheck; then
+            echo "Steamos Detected"
+           export_sls wheresteam -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+        else
+            echo "Headcrab Connecting to The Updater.."
+            export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+        fi
+            killall dgsc
+            echo "Compatible Update Applied Via Headcrab_dgsc"
+            }
+            
     checkforsteamcfg(){
     wheresteamcfg
     if [ -f "steam.cfg" ]; then
         rm steam.cfg
+    else
+        echo "No Pre Exisiting Steam.cfg"
+    fi
         nuketheclient
         echo "the headcrab approaches.."
         echo "the headcrab lactches on the steam process.."
-        export_sls wheresteam -clearbeta steam://exit &> /dev/null
-    else
-        export_sls wheresteam -clearbeta steam://exit &> /dev/null
-    fi
+        overideupdate
         conditioncheck
         }
 
@@ -140,7 +223,7 @@ set -eu
         whereSLSsteamconfig
             if grep -q -F "PlayNotOwnedGames: no" "config.yaml"; then
                 sed -i "s/^PlayNotOwnedGames:.*/PlayNotOwnedGames: yes/" config.yaml
-                sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
+                sed -i "s/^SafeMode:.*/SafeMode: no/" config.yaml
                 echo "PlayNotOwnedGames: Enabled"
                 echo "SafeMode: Enabled"
             else
@@ -212,7 +295,7 @@ patchflatpaksteam(){
 
     main(){
         backupconfig
-        checkforsteamcfg
+        clientdowngrade
         }
 
     main
