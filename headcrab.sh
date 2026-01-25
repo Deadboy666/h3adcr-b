@@ -41,7 +41,7 @@ set -eu
             echo "Headcrab_dgsc Downloaded Already."
         else
             echo "Downloading Headcrab_dgsc.."
-            wget "$dgsc"
+            wget "$dgsc" &> /dev/null
             chmod +x dgsc
         fi
           echo "" &> /dev/null
@@ -54,7 +54,7 @@ set -eu
             echo "Headcrab_dlm Downloaded Already."
         else
             echo "Downloading Headcrab_dlm.."
-            wget "$dlm"
+            wget "$dlm" &> /dev/null
             chmod +x dlm
         fi
           echo "" &> /dev/null
@@ -140,12 +140,12 @@ set -eu
     overideupdate(){
         if steamoscheck; then
             echo "Steamos Detected"
-            echo "Headcrab Connecting to The Updater.."
             dgsc
+            echo "Headcrab Connecting to The Updater.."
            export_sls wheresteam -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         else
-            echo "Headcrab Connecting to The Updater.."
             dgsc
+            echo "Headcrab Connecting to The Updater.."
             export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         fi
             killall dgsc
