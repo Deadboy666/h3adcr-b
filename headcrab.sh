@@ -15,9 +15,9 @@ set -eu
     DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/steam_client_steamdeck_stable_ubuntu12"
     Headcrab_Downgrade_URL="http://localhost:1666/"
     Headcrab_Downgrader_Path=$HOME/.headcrab
-    dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dgsc"
-    dlm="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dlm"
-    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/sources.txt"
+    dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/main/dgsc"
+    dlm="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/main/dlm"
+    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/sources.txt"
 
     steamoscheck(){
     [ -f /etc/os-release ] && source /etc/os-release && [ "${ID:-}" = "steamos" ]
