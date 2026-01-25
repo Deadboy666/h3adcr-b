@@ -5,6 +5,8 @@ curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/mai
 ```
 Headcrab Features:
 
+***Installs Latest SLSsteam***
+
 ***Control Over Client Updates***
 
 ***Patching Clients On Almost Every Linux Steam Install***
