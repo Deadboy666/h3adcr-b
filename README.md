@@ -1,5 +1,16 @@
-***WARNING: This Branch May Have Breaking Changes Only Use This One If You Know What Your Doing.***
+***Close Client Then Run For Some Fun***
 
 ```bash
-curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.sh" | bash
+curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab.sh" | bash
 ```
+Headcrab Features:
+
+***Installs Latest SLSsteam***
+
+***Control Over Client Updates***
+
+***Patching Clients On Almost Every Linux Steam Install***
+
+***Supports Native/Flatpak Installations***
+
+***Completely Rootless***

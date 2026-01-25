@@ -11,8 +11,8 @@ set -eu
     SLSsteamConfigDir=$HOME/.config/SLSsteam
     InstallDir=$SCRIPT_DIR/bin
     RepoSLSsteamLocation=/usr/lib32
-    LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_ubuntu12"
-    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_steamdeck_stable_ubuntu12"
+    LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/steam_client_ubuntu12"
+    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/steam_client_steamdeck_stable_ubuntu12"
     Headcrab_Downgrade_URL="http://localhost:1666/"
     Headcrab_Downgrader_Path=$HOME/.headcrab
     dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dgsc"
