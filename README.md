@@ -14,3 +14,7 @@ Headcrab Features:
 ***Supports Native/Flatpak Installations***
 
 ***Completely Rootless***
+
+Notes:
+
+If Using A Archbased Distro While Headcrab Supports Patching With The Package Make Sure You Install The Package Update Or Uninstall It Then Run Headcrab Normally.
