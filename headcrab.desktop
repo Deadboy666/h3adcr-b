@@ -2,7 +2,7 @@
 Version=1.0
 Name=Headcrab Updater
 Comment=Updates Client And SLSsteam
-Exec=bash -c "curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.sh" | bash"
+Exec=bash -c "curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab.sh" | bash"
 Terminal=true
 Type=Application
 Categories=Utility;Application;
