@@ -18,13 +18,13 @@ set -eu
 	
 	#URL'S
     Headcrab_Downgrade_URL="http://localhost:1666/"
-	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_ubuntu12"
-    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam_client_steamdeck_stable_ubuntu12"
-	Steamos_Native_LaunchScript="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/steam.sh"
-    dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dgsc"
-    dlm="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/testing/dlm"
-    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/sources.txt"
-	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.desktop"
+	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/steam_client_ubuntu12"
+    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/steam_client_steamdeck_stable_ubuntu12"
+	Steamos_Native_LaunchScript="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/steam.sh"
+    dgsc="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/main/dgsc"
+    dlm="https://github.com/Deadboy666/h3adcr-b/raw/refs/heads/main/dlm"
+    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/sources.txt"
+	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab.desktop"
 	
     archcheck(){
         [ -f /etc/os-release ] && source /etc/os-release && [[ "$ID" == "arch" || "$ID" == "cachyos" ]]
