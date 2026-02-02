@@ -153,7 +153,8 @@ set -eu
         if archcheck; then
         installed_pkgs=$(pacman -Qq | grep -E '^slssteam(-git)?$' || true)
         if [ -n "$installed_pkgs" ]; then
-            echo "We need to convert your Arch SLSsteam installation to a local one."
+            echo "Headcrab Will Transition To The Install To One That Can Seemlessly Update."
+			echo "This Will Replace The System Package Of SLSsteam With One That Is Local."
             echo "Uninstalling Arch packages: $installed_pkgs"
             sudo pacman -Rns --noconfirm $installed_pkgs
         fi
