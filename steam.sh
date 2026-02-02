@@ -732,7 +732,7 @@ headcrab(){
 	for option in "$@"
 	do
 		if [ "$option" = "-headcrab" ]; then
-			curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.sh" | bash
+			curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab.sh" | bash
 			exit
 		fi
 	done
