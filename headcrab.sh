@@ -285,7 +285,7 @@ set -eu
             echo "Headcrab Bootstrapping SLSsteam.."
             export_sls wheresteam -clearbeta steam://exit
 		else
-			export_sls wheresteam -clearbeta steam://exit
+			export_sls wheresteam -clearbeta -exitsteam &> /dev/null
         fi
             echo "" &> /dev/null
             }
