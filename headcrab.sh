@@ -30,7 +30,7 @@ set -eu
 		[ -f /etc/os-release ] && . /etc/os-release
 		if ! grep -q "^ID_LIKE=" /etc/os-release || echo "ID_LIKE=arch" | sudo tee -a /etc/os-release > /dev/null
 	    fi
-	    	[ -f /etc/os-release ] && . /etc/os-release && [[ "$ID" == "arch" || "$ID" == "cachy" || "$ID_LIKE" =~ "arch" ]]
+	    	[ -f /etc/os-release ] && . /etc/os-release && [[ "$ID" == "arch" || "$ID_LIKE" =~ "arch" ]]
 	}
 
     debiancheck(){
