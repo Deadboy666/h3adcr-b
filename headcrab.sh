@@ -26,16 +26,38 @@ set -eu
     Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/sources.txt"
 	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab.desktop"
 	
+    read_os_release(){
+        local f
+        OS_ID=""
+        OS_ID_LIKE=""
+        for f in /etc/os-release /usr/lib/os-release; do
+            [ -r "$f" ] || continue
+            . "$f"
+            break
+        done
+        OS_ID=${ID:-}
+        OS_ID_LIKE=${ID_LIKE:-}
+    }
+
     archcheck(){
-        [ -f /etc/os-release ] && source /etc/os-release && [[ "$ID" == "arch" || "$ID" == "cachyos" ]]
+        read_os_release
+        case " $OS_ID $OS_ID_LIKE " in
+            *" arch "*|*" cachyos "*) return 0 ;;
+        esac
+        return 1
         }
 
     debiancheck(){
-        [ -f /etc/os-release ] && source /etc/os-release && [[ "$ID" == "debian" || "$ID" == "ubuntu" ]]
+        read_os_release
+        case " $OS_ID $OS_ID_LIKE " in
+            *" debian "*|*" ubuntu "*) return 0 ;;
+        esac
+        return 1
         }   
 
     steamoscheck(){
-        [ -f /etc/os-release ] && source /etc/os-release && [ "${ID:-}" = "steamos" ]
+        read_os_release
+        [ "$OS_ID" = "steamos" ]
         }
     
     flatpakcheck(){
