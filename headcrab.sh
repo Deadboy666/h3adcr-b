@@ -35,7 +35,7 @@ set -eu
         }   
 
     steamoscheck(){
-        [ -f /etc/os-release ] && source /etc/os-release && [ "$ID" = "steamos" ]
+        [ -f /etc/os-release ] && source /etc/os-release && [ "${ID:-}" = "steamos" ]
         }
     
     flatpakcheck(){
