@@ -27,7 +27,7 @@ set -eu
 	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.desktop"
 	
     archcheck() {  
-		[ -f /etc/os-release ] && source /etc/os-release ]
+		[ -f /etc/os-release ] && . /etc/os-release
 		if ! grep -q "^ID_LIKE=" /etc/os-release || echo "ID_LIKE=arch" | sudo tee -a /etc/os-release > /dev/null
 	    fi
 	    	[ -f /etc/os-release ] && . /etc/os-release && [[ "$ID" == "arch" || "$ID" == "cachy" || "$ID_LIKE" =~ "arch" ]]
