@@ -6,6 +6,7 @@ shopt -s failglob
 
 INJECT_SLS="LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so"
 UPDATE_URL="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.sh"
+
 steam(){
 log () {
 	echo "steam.sh[$$]: $*" >&2 || :
