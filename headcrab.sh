@@ -410,7 +410,7 @@ set -eu
         whereSLSsteamconfig
             if grep -q -F "PlayNotOwnedGames: no" "config.yaml"; then
                 sed -i "s/^PlayNotOwnedGames:.*/PlayNotOwnedGames: yes/" config.yaml
-                sed -i "s/^SafeMode:.*/SafeMode: no/" config.yaml
+                sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
                 echo "PlayNotOwnedGames: Enabled"
                 echo "SafeMode: Enabled"
             else
