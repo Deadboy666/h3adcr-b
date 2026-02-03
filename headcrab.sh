@@ -27,7 +27,7 @@ set -eu
 	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.desktop"
 	
     archcheck(){
-        [ -f /etc/os-release ] && source /etc/os-release && [[ "$ID" == "arch" || "$ID_LIKE" =~ "arch" ]] || [ -f /etc/arch-release ]
+        [ -f /etc/os-release ] && source /etc/os-release && [[ "$ID" == "arch" || "$ID" == "cachy" || "$ID_LIKE" =~ "arch" ]] || [ -f /etc/arch-release ]
         }
 
     debiancheck(){
