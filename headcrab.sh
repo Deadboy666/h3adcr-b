@@ -26,18 +26,16 @@ set -eu
     Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/sources.txt"
 	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.desktop"
 	
-    archcheck() {  
-		[ -f /etc/os-release ] && . /etc/os-release
-		if ! grep -q "^ID_LIKE=" /etc/os-release || echo "ID_LIKE=arch" | sudo tee -a /etc/os-release > /dev/null
-	    	[ -f /etc/os-release ] && . /etc/os-release && [[ "$ID" == "arch" || "$ID_LIKE" =~ "arch" ]]
-	}
+    archcheck(){
+        [ -f /etc/os-release ] && source /etc/os-release && [[ "$ID" == "arch" || "$ID" == "cachyos" ]]
+        }
 
     debiancheck(){
-        [ -f /etc/os-release ] && source /etc/os-release && [[ "${ID:-}" == "debian" || "${ID:-}" == "ubuntu" || "${ID_LIKE}" =~ "debian" || "${ID_LIKE}" =~ "ubuntu" ]]
+        [ -f /etc/os-release ] && source /etc/os-release && [[ "$ID" == "debian" || "$ID" == "ubuntu" ]]
         }   
 
     steamoscheck(){
-        [ -f /etc/os-release ] && source /etc/os-release && [ "${ID:-}" = "steamos" ]
+        [ -f /etc/os-release ] && source /etc/os-release && [ "$ID" = "steamos" ]
         }
     
     flatpakcheck(){
@@ -116,11 +114,12 @@ set -eu
         }
 
     preinstallchecks(){
-        installdebiandeps
-        removearchpkg
+        InstallDebianDeps
+        RemoveArchPkg
+        DisableSLSsteamPath
         }
 
-    installdebiandeps() {	    
+    InstallDebianDeps() {	    
 	    if debiancheck; then
 
 		if apt-cache search --names-only '^libcurl4t64$' | grep -q "libcurl4t64"; then
@@ -150,7 +149,7 @@ set -eu
         fi
 	    }
 
-    removearchpkg(){
+    RemoveArchPkg(){
         if archcheck; then
         installed_pkgs=$(pacman -Qq | grep -E '^slssteam(-git)?$' || true)
         if [ -n "$installed_pkgs" ]; then
@@ -158,6 +157,18 @@ set -eu
             echo "Uninstalling Arch packages: $installed_pkgs"
             sudo pacman -Rns --noconfirm $installed_pkgs
         fi
+        fi
+    }
+
+    DisableSLSsteamPath(){
+        local target="$SLSsteamInstallDir/path/steam"
+        if [ -e "$target" ]; then
+            echo "Found: $target"
+            echo "Renaming $target -> ${target}.bak"
+            mv -- "$target" "${target}.bak"
+            fi
+        else
+            echo "Not present: $target"
         fi
     }
     
