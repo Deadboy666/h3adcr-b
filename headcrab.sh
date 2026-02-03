@@ -166,7 +166,6 @@ set -eu
             echo "Found: $target"
             echo "Renaming $target -> ${target}.bak"
             mv -- "$target" "${target}.bak"
-            fi
         else
             echo "Not present: $target"
         fi
