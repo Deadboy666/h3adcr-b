@@ -333,9 +333,7 @@ set -eu
     }
     
     export_sls(){
-        if [ -f "$RepoSLSsteamLocation/libSLSsteam.so" ]; then
-                LD_AUDIT=/usr/lib32/libSLS-library-inject.so:/usr/lib32/libSLSsteam.so "$@"
-        elif [ -d "$FlatpakSteamInstallDir" ]; then
+        if [ -d "$FlatpakSteamInstallDir" ]; then
                 copySLSsteam
                 LD_AUDIT=$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/library-inject.so:$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/SLSsteam.so "$@"
         else
