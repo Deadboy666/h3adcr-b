@@ -26,9 +26,13 @@ set -eu
     Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/sources.txt"
 	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.desktop"
 	
-    archcheck(){
-        [ -f /etc/os-release ] && source /etc/os-release && [[ "$ID" == "arch" || "$ID" == "cachy" || "$ID_LIKE" =~ "arch" ]] || [ -f /etc/arch-release ]
-        }
+    archcheck() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        grep -q "^ID_LIKE=" /etc/os-release || echo "ID_LIKE=arch" | sudo tee -a /etc/os-release > /dev/null
+    fi
+    	[ -f /etc/os-release ] && . /etc/os-release && [[ "$ID" == "arch" || "$ID" == "cachy" || "$ID_LIKE" =~ arch ]] || [ -f /etc/arch-release ]
+	}
 
     debiancheck(){
         [ -f /etc/os-release ] && source /etc/os-release && [[ "${ID:-}" == "debian" || "${ID:-}" == "ubuntu" || "${ID_LIKE}" =~ "debian" || "${ID_LIKE}" =~ "ubuntu" ]]
