@@ -454,7 +454,7 @@ EOF
             }
 
     main(){
-        #preinstallchecks
+        preinstallchecks
 		SetupHeadcrab_Updater
         backupconfig
         checkforsteamcfg
