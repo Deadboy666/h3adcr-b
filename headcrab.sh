@@ -165,13 +165,27 @@ set -eu
     }
 
     DisableSLSsteamPath(){
-        local target="$SLSsteamInstallDir/path/steam"
-        if [ -e "$target" ]; then
-            echo "Found: $target"
-            echo "Renaming $target -> ${target}.bak"
-            mv -- "$target" "${target}.bak"
-        else
-            echo "Not present: $target"
+        local local_target="$SLSsteamInstallDir/path/steam"
+        local flatpak_target="$FlatpakSLSsteamInstallDir/path/steam"
+        local acted=0
+
+        if [ -e "$flatpak_target" ]; then
+            echo "Found: $flatpak_target"
+            echo "Renaming $flatpak_target -> ${flatpak_target}.bak"
+            mv -- "$flatpak_target" "${flatpak_target}.bak"
+            acted=1
+        fi
+
+        if [ -e "$local_target" ]; then
+            echo "Found: $local_target"
+            echo "Renaming $local_target -> ${local_target}.bak"
+            mv -- "$local_target" "${local_target}.bak"
+            acted=1
+        fi
+
+        if [ "$acted" -eq 0 ]; then
+            echo "Not present: $flatpak_target"
+            echo "Not present: $local_target"
         fi
     }
     
