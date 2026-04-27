@@ -572,14 +572,14 @@ set -eu
     | grep "SLSsteam-Any.7z" \
     | cut -d '"' -f 4) &> /dev/null
     }
-    
+
     export_sls(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
                 copySLSsteam
-                LD_AUDIT=$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/library-inject.so:$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/SLSsteam.so "$@"
+                LD_AUDIT=$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/library-inject.so "$@"
         else
                 copySLSsteam
-                LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so "$@"
+                LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so "$@"
         fi
                 echo &> /dev/null
                 }
