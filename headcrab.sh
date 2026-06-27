@@ -599,7 +599,6 @@
 
     downloadSLSsteam(){
             echo "Downloading Latest SLSsteam.."
-            cd $SCRIPT_DIR/
             mkdir -p $SCRIPT_DIR/SLSsteam_Download
             cd SLSsteam_Download
             local TAG
@@ -609,6 +608,21 @@
             TAG="${TAG##*/}"
             wget -O SLSsteam-Any.7z \
                 "https://github.com/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any.7z" &> /dev/null
+        }
+		
+		downloadnetsock(){
+            echo "Downloading Latest Netsock Lib.."
+            mkdir -p ~/.config/SLSsteam/tools/netsock
+            cd ~/.config/SLSsteam/tools/netsock
+            local TAG
+            TAG=$(curl -sSL --connect-timeout 15 --max-time 30 \
+                -o /dev/null -w "%{url_effective}" \
+                "yesyes0649/steamnetsock-patch/releases/latest" 2>/dev/null)
+            TAG="${TAG##*/}"
+            wget -O netsock.so \
+                "https://github.com/yesyes0649/steamnetsock-patch/releases/download/$TAG/fix.so" &> /dev/null
+                echo "Downloaded Latest Netsock Lib."
+				cd $SCRIPT_DIR/
         }
     
     export_sls(){
@@ -623,6 +637,7 @@
                 }
 
     extractSLSsteam(){
+		downloadnetsock
         downloadSLSsteam
          7z x $SCRIPT_DIR/SLSsteam_Download/SLSsteam-Any.7z -aoa > /dev/null
          rm -rf tools
