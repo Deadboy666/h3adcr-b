@@ -29,9 +29,13 @@ Headcrab is a rootless Steam client compatibility helper
    * Void Linux Based Distros.
  ## Getting Started
  * Installing Headcrab
- 
+ * Cloudflare Redirect.
 ```bash
 curl -fsSL headcrab.pages.dev | bash
+```
+* Incase the Redirect Doesnt work.
+```bash
+curl -fsSL "https://raw.githubusercontent.com/Deadboy666/h3adcr-b/refs/heads/main/headcrab.sh" | bash
 ```
 
 - For Troubleshooting h3adcr-b* [View the Wiki](https://github.com/Deadboy666/h3adcr-b/wiki/Headcrab-Wiki)
