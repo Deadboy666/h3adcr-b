@@ -609,7 +609,6 @@
             wget -O SLSsteam-Any.7z \
                 "https://github.com/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any.7z" &> /dev/null
         }
-        }
 		
 		downloadnetsock(){
             echo "Downloading Latest Netsock Lib.."
