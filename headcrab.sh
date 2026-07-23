@@ -29,6 +29,7 @@
     Headcrab_Flatpak_CR="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_flatpak.sh"
 	Headcrab_Client="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/master/ClientExtracted/steam.sh"
 	CloudRedirectLib="https://github.com/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect.so"
+	CloudRedirectCLI="https://github.com/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect_cli"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
 	cloudredirect="https://raw.githubusercontent.com/Selectively11/CloudRedirect/refs/heads/gh-pages/cloudredirect.flatpakrepo"
@@ -686,6 +687,8 @@
 		    flatpak install --user --reinstall org.cloudredirect.CloudRedirect --assumeyes --noninteractive
 		    update-desktop-database
         wget -O cloud_redirect.so "$CloudRedirectLib" &> /dev/null
+		wget -O cloud_redirect_lib "$CloudRedirectCLI" &> /dev/null
+		chmod 777 cloud_redirect_lib
         echo "Latest Cloud Redirect Library Downloaded"
       else
         echo "User Is Not Using Cloud Redirect Skipping.."
