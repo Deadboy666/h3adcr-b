@@ -495,7 +495,7 @@
 		elif voidcheck; then
 			echo "Void Linux"
 			echo "Headcrab Bootstrapping SLSsteam.."  
-			export_sls wheresteam -clearbeta steam://exit
+			export_sls wheresteam -clearbeta -exitsteam
 		else
 			export_sls wheresteam -clearbeta -exitsteam &> /dev/null
         fi
