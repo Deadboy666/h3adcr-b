@@ -573,18 +573,18 @@
             createsteamcfg
             dgsc
             echo "Headcrab Connecting to The Updater.."
-           export_sls wheresteam -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+           export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
 		elif bazzitecheck; then
 			echo "Bazzite Detected"
             createsteamcfg
             dgsc
             echo "Headcrab Connecting to The Updater.."
-           export_sls wheresteam -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+           export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         else
             createsteamcfg
             dgsc
             echo "Headcrab Connecting to The Updater.."
-            export_sls wheresteam -clearbeta -textmode -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         fi
             killall dgsc
             echo "Compatible Update Applied Via Headcrab_dgsc"
