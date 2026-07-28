@@ -2,7 +2,7 @@
 
 
     #Headcrab Compatibile Client Version
-    HeadcrabCompatibleClientVer=1784778118
+    HeadcrabCompatibleClientVer=1785187029
     
     #Paths
     SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -21,8 +21,8 @@
 	
 	#URL'S
     Headcrab_Downgrade_URL="http://localhost:1666/"
-	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
-    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
+	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/master/ClientManifest/steam_client_ubuntu12"
+    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/master/ClientManifest/steamdeck_stable"
 	Headcrab_Native="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
     Headcrab_Native_CR="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_native.sh"
 	Headcrab_Flatpak="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_flatpak.sh"
@@ -471,7 +471,6 @@
         wheresteampackage
         wget "$Sources" &> /dev/null
         DownloadClientManifest
-        dlm
         }
         
     clientinstall(){
@@ -571,22 +570,22 @@
         if steamoscheck; then
             echo "Steamos Detected"
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
-           export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+           export_sls wheresteam  -forcesteamupdate -forcepackagedownload -exitsteam &> /dev/null
 		elif bazzitecheck; then
 			echo "Bazzite Detected"
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
-           export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+           export_sls wheresteam  -forcesteamupdate -forcepackagedownload -exitsteam &> /dev/null
         else
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
-            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -exitsteam &> /dev/null
         fi
-            killall dgsc
+            #killall dgsc
             echo "Compatible Update Applied Via Headcrab_dgsc"
             }
             
