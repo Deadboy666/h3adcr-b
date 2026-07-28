@@ -389,10 +389,10 @@
 		wheresteampackage
 		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed"]; then
 			echo "Headcrab Downloading Bazzite-Deck Client Manifest"
-			wget "$DeckClientManifest" &> /dev/null
+			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		else
 			echo "Headcrab Downloading Bazzite-Desktop Client Manifest"
-			wget "$LinuxClientManifest" &> /dev/null
+			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
 		fi
 			echo "" &> /dev/null
 		}
@@ -401,10 +401,10 @@
 		wheresteampackage
 		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
 			echo "Headcrab Downloading CachyOS-Handheld Client Manifest"
-			wget "$DeckClientManifest" &> /dev/null
+			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		else
 			echo "Headcrab Downloading CachyOS-Desktop Client Manifest"
-			wget "$LinuxClientManifest" &> /dev/null
+			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
 		fi
 			echo "" &> /dev/null
 		}
@@ -412,14 +412,14 @@
     DownloadClientManifest(){
 	    if steamoscheck; then
 	        echo "Headcrab Downloading Steamos Client Manifest.."
-	        wget "$DeckClientManifest" &> /dev/null
+	        wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		elif bazzitecheck; then
 			TrashiteWatMani
 		elif cachyoscheck; then
 			CachyWatMani
 	    else
 	        echo "Headcrab Downloading Linux Client Manifest.."
-	        wget "$LinuxClientManifest" &> /dev/null
+	        wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
 	    fi
 	        echo "Client Manifest Downloaded"
     }
