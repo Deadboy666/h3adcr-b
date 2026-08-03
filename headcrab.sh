@@ -21,8 +21,8 @@
 	
 	#URL'S
     Headcrab_Downgrade_URL="http://localhost:1666/"
-	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/master/ClientManifest/steam_client_ubuntu12"
-    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/master/ClientManifest/steamdeck_stable"
+	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab-testing/ClientManifest/steam_client_ubuntu12"
+    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab-testing/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
 	Headcrab_Native="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
     Headcrab_Native_CR="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_native.sh"
 	Headcrab_Flatpak="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_flatpak.sh"
@@ -389,10 +389,10 @@
 		wheresteampackage
 		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed"]; then
 			echo "Headcrab Downloading Bazzite-Deck Client Manifest"
-			wget "$DeckClientManifest" &> /dev/null
+			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		else
 			echo "Headcrab Downloading Bazzite-Desktop Client Manifest"
-			wget "$LinuxClientManifest" &> /dev/null
+			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
 		fi
 			echo "" &> /dev/null
 		}
@@ -401,10 +401,10 @@
 		wheresteampackage
 		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
 			echo "Headcrab Downloading CachyOS-Handheld Client Manifest"
-			wget "$DeckClientManifest" &> /dev/null
+			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		else
 			echo "Headcrab Downloading CachyOS-Desktop Client Manifest"
-			wget "$LinuxClientManifest" &> /dev/null
+			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
 		fi
 			echo "" &> /dev/null
 		}
@@ -412,14 +412,14 @@
     DownloadClientManifest(){
 	    if steamoscheck; then
 	        echo "Headcrab Downloading Steamos Client Manifest.."
-	        wget "$DeckClientManifest" &> /dev/null
+	        wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		elif bazzitecheck; then
 			TrashiteWatMani
 		elif cachyoscheck; then
 			CachyWatMani
 	    else
 	        echo "Headcrab Downloading Linux Client Manifest.."
-	        wget "$LinuxClientManifest" &> /dev/null
+	        wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
 	    fi
 	        echo "Client Manifest Downloaded"
     }
@@ -563,6 +563,118 @@
             fi
                 echo "" &> /dev/null
             }
+
+    updateSLSsteamConfig(){
+        (
+            local latest_config="$1"
+            local config_file
+            local merged_config
+            local backup_base
+            local backup
+            local suffix=1
+
+            if [ ! -f "$latest_config" ]; then
+                return
+            fi
+
+            whereSLSsteamconfig
+            config_file="$PWD/config.yaml"
+
+            if [ ! -f "$config_file" ]; then
+                return
+            fi
+
+            if ! grep -q '^DisableFamilyShareLock:' "$latest_config"; then
+                echo "SLSsteam Config Template Is Invalid"
+                return
+            fi
+
+            merged_config=$(mktemp "${config_file}.tmp.XXXXXX") || return
+
+            if ! awk '
+                NR == FNR {
+                    if ($0 ~ /^[A-Za-z_][A-Za-z0-9_]*:/) {
+                        key = $0
+                        sub(/:.*/, "", key)
+                        current = key
+                        present[key] = 1
+                        saved[key] = $0 ORS
+                        next
+                    }
+
+                    if (current != "" && $0 ~ /^[[:space:]]+/) {
+                        saved[current] = saved[current] $0 ORS
+                    }
+                    next
+                }
+
+                /^[A-Za-z_][A-Za-z0-9_]*:/ {
+                    key = $0
+                    sub(/:.*/, "", key)
+
+                    printf "%s", prefix
+                    prefix = ""
+
+                    if (key in present) {
+                        printf "%s", saved[key]
+                        use_template = 0
+                    } else {
+                        print
+                        use_template = 1
+                    }
+
+                    have_key = 1
+                    next
+                }
+
+                have_key && /^[[:space:]]+/ {
+                    if (use_template) {
+                        print
+                    }
+                    next
+                }
+
+                {
+                    prefix = prefix $0 ORS
+                }
+
+                END {
+                    printf "%s", prefix
+                }
+            ' "$config_file" "$latest_config" > "$merged_config"; then
+                echo "SLSsteam Config Update Failed"
+                rm -f "$merged_config"
+                return
+            fi
+
+            if ! grep -q '^DisableFamilyShareLock:' "$merged_config"; then
+                echo "SLSsteam Config Update Failed"
+                rm -f "$merged_config"
+                return
+            fi
+
+            if cmp -s "$config_file" "$merged_config"; then
+                echo "SLSsteam Config Is Up To Date"
+                rm -f "$merged_config"
+                return
+            fi
+
+            backup_base="${config_file}.headcrab-$(date +%Y%m%d-%H%M%S)"
+            backup="$backup_base"
+
+            while [ -e "$backup" ]; do
+                backup="${backup_base}-${suffix}"
+                suffix=$((suffix + 1))
+            done
+
+            cp -a "$config_file" "$backup"
+            chmod --reference="$config_file" "$merged_config" 2>/dev/null || true
+            mv -f "$merged_config" "$config_file"
+
+            echo "SLSsteam Config Updated"
+            echo "Config Backup: $backup"
+        )
+    }
             
     overideupdate(){
         echo "the headcrab latches on the steam process.."
@@ -640,6 +752,7 @@
 		downloadnetsock
         downloadSLSsteam
          7z x $SCRIPT_DIR/SLSsteam_Download/SLSsteam-Any.7z -aoa > /dev/null
+         updateSLSsteamConfig "$SCRIPT_DIR/SLSsteam_Download/res/config.yaml"
          rm -rf tools
          rm -rf res
          rm setup.sh
