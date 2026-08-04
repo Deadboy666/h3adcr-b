@@ -2,7 +2,7 @@
 
 
     #Headcrab Compatibile Client Version
-    HeadcrabCompatibleClientVer=1785187029
+    HeadcrabCompatibleClientVer=1785799196
     
     #Paths
     SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -471,7 +471,7 @@
         wheresteampackage
         wget -O sources.txt "$Sources" &> /dev/null
         DownloadClientManifest
-		dlm
+		#dlm
         }
         
     clientinstall(){
@@ -683,22 +683,22 @@
         if steamoscheck; then
             echo "Steamos Detected"
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
 		elif bazzitecheck; then
 			echo "Bazzite Detected"
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         else
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
             export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         fi
-            killall dgsc
+            #killall dgsc
             echo "Compatible Update Applied Via Headcrab_dgsc"
             }
             
