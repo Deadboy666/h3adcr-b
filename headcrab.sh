@@ -814,7 +814,7 @@
         whereSLSsteamconfig
             if [ -f .headcrabd ]; then
                 echo "Headcrab Config Found Skipping Changes"
-            elif steamoscheck; true
+            elif steamoscheck; then
 				echo "Steamos Detected Enabled Safemode"
 				sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
 				echo "config patched" > .headcrabd
