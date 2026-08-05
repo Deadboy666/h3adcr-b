@@ -812,13 +812,13 @@
         
     editconfig(){
         whereSLSsteamconfig
-            if [ -f .headcrabd ]; then
-                echo "Headcrab Config Found Skipping Changes"
-            elif steamoscheck; then
+            if steamoscheck; then
 				echo "Steamos Detected Enabled Safemode"
 				sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
 				sed -i "s/^NotifyInit:.*/NotifyInit: yes/" config.yaml
 				echo "config patched" > .headcrabd
+			elif [ -f .headcrabd ]; then
+                echo "Headcrab Config Found Skipping Changes"
 			else
                 sed -i "s/^PlayNotOwnedGames:.*/PlayNotOwnedGames: yes/" config.yaml
                 sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
