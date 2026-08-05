@@ -817,6 +817,7 @@
             elif steamoscheck; then
 				echo "Steamos Detected Enabled Safemode"
 				sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
+				sed -i "s/^NotifyInit:.*/NotifyInit: yes/" config.yaml
 				echo "config patched" > .headcrabd
 			else
                 sed -i "s/^PlayNotOwnedGames:.*/PlayNotOwnedGames: yes/" config.yaml
