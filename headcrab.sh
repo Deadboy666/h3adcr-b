@@ -27,7 +27,17 @@
     # A real version-selector (letting a user pick stable vs testing at
     # runtime) is planned but not built yet -- this is just the two
     # mirrors existing and staying independent for now.
-    Headcrab_Downgrade_URL="https://headcrab.bifrosthub.ru/client-testing"
+    # Switched to plain HTTP on a non-standard port 2026-08-08 as a
+    # deliberate isolation test: drazy's own local plain-HTTP
+    # localhost:1666 test worked fully, and disabling the Cloudflare
+    # proxy on the standard HTTPS site didn't fix the downgrader --
+    # narrowing it to either the HTTPS/TLS layer itself or the standard
+    # port. This changes exactly one variable (drops TLS, keeps the
+    # non-standard-port style) to tell those apart. Same underlying
+    # content as the HTTPS site (/srv/headcrab on the VPS), just a
+    # second nginx server block on :420 with no cert. Revert to the
+    # https:// URL above once the isolation test result is in.
+    Headcrab_Downgrade_URL="http://headcrab.bifrosthub.ru:420/client-testing"
 	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
     DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
 	Headcrab_Native="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
