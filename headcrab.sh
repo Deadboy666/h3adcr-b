@@ -24,7 +24,7 @@
     # mirror tier (one cycle behind /client-latest), not the bleeding-edge
     # pin. See h3adcr-b-modul3s's update-sources.py for how stable-sources.txt
     # gets cycled in.
-    Headcrab_Downgrade_URL="https://headcrab.bifrosthub.ru/client-stable"
+    Headcrab_Downgrade_URL="http://localhost:1666"
 	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
     DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
 	Headcrab_Native="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
