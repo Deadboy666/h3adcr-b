@@ -20,10 +20,6 @@
     Headcrab_Downgrader_Path=$HOME/.headcrab
 	
 	#URL'S
-    # main is the stable branch -- deliberately pinned to the /client-stable
-    # mirror tier (one cycle behind /client-latest), not the bleeding-edge
-    # pin. See h3adcr-b-modul3s's update-sources.py for how stable-sources.txt
-    # gets cycled in.
     Headcrab_Downgrade_URL="http://localhost:1666"
 	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
     DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
