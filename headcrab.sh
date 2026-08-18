@@ -34,7 +34,7 @@
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
 	cloudredirect="https://raw.githubusercontent.com/Selectively11/CloudRedirect/refs/heads/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
-    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/sources.txt"
+    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/stable-sources.txt"
 	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.desktop"
 	Headcrab_Icon="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.png"
 	
@@ -273,7 +273,7 @@
             local missing_pkgs=()
             local missing_cmds=()
 
-            for pkg in wget curl grep gawk sed 7zip flatpak; do
+            for pkg in wget curl grep gawk sed 7zip; do
                 case "$pkg" in
                     gawk) cmd="awk" ;;
                     7zip) cmd="7z" ;;
@@ -307,7 +307,7 @@
                 return 1
             fi
 
-            for pkg in wget curl grep gawk sed 7zip flatpak; do
+            for pkg in wget curl grep gawk sed 7zip; do
                 case "$pkg" in
                     gawk) cmd="awk" ;;
                     7zip) cmd="7z" ;;
@@ -330,7 +330,7 @@
 	
 	InstallArchDeps(){
 		if archcheck; then
-		 local packages=("wget" "curl" "grep" "awk" "sed" "7zip" "flatpak")
+		 local packages=("wget" "curl" "grep" "awk" "sed" "7zip")
 	    local to_install=()
 	
 	    for pkg in "${packages[@]}"; do
@@ -347,6 +347,32 @@
 	    fi
 		fi
 	}
+
+    InstallFlatpakDep(){
+        if command -v flatpak >/dev/null 2>&1; then
+            return 0
+        fi
+
+        echo "Cloud Redirect requires Flatpak. Installing..."
+
+        if archcheck; then
+            sudo pacman -S --needed --noconfirm flatpak
+        elif debiancheck; then
+            sudo apt-get install -y flatpak
+        elif voidcheck; then
+            if [ "$(id -u)" -eq 0 ]; then
+                xbps-install -y flatpak
+            elif command -v sudo >/dev/null 2>&1; then
+                sudo xbps-install -y flatpak
+            else
+                echo "Flatpak is required for Cloud Redirect"
+                return 1
+            fi
+        else
+            echo "Flatpak is required for Cloud Redirect"
+            return 1
+        fi
+    }
 
     RemoveArchPkg(){
         if archcheck; then
@@ -790,6 +816,7 @@
     
     crinstall(){
       if crconfigcheck; then
+        InstallFlatpakDep || return 1
         echo "Downloading Latest Cloud Redirect Library"
         whereCR_Install
 		 echo "Installing Cloud Redirect App"
