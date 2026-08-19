@@ -720,7 +720,7 @@
                 "https://github.com/AceSLS/SLSsteam/releases/latest" 2>/dev/null)
             TAG="${TAG##*/}"
             wget -O SLSsteam-Any.7z \
-                "https://github.com/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any.7z" &> /dev/null
+                "https://github.com/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any-release.7z" &> /dev/null
         }
 		
 		downloadnetsock(){
