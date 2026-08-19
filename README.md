@@ -14,9 +14,9 @@ Headcrab is a rootless Steam client compatibility helper
 5. Patches Steam launch scripts to enable LD_AUDIT injection and updates SLSsteam config.
    
 ## Disclaimer For Steamos Users
-Since how steamos is done forcing bash to be in exit one theres one extra step you have to do.
-You only have to do it once before running headcrab if its your first time using it.
-follow the steps linked here then run headcrab :)
+- Since how steamos is done forcing bash to be in exit one theres one extra step you have to do.
+- You only have to do it once before running headcrab if its your first time using it.
+- follow the steps linked here then run headcrab :)
 https://github.com/Deadboy666/h3adcr-b/wiki/Headcrab-Troubleshooting-For-Steamos
 
 ## Supported Client Installs:
