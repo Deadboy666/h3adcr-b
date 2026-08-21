@@ -20,7 +20,29 @@
     Headcrab_Downgrader_Path=$HOME/.headcrab
 	
 	#URL'S
-    Headcrab_Downgrade_URL="http://localhost:1666"
+    # This is the "testing" branch's own headcrab.sh, deliberately pointed
+    # at the separate /client-testing mirror (not /client, which the
+    # stable branch uses) -- so drazy can push whatever pin he's
+    # experimenting with here without touching what stable users get.
+    # A real version-selector (letting a user pick stable vs testing at
+    # runtime) is planned but not built yet -- this is just the two
+    # mirrors existing and staying independent for now.
+    #
+    # Trailing slash is load-bearing: Steam's -overridepackageurl appends
+    # the target filename directly onto this string with no separator of
+    # its own (confirmed 2026-08-21 by diffing a working Wayback Machine
+    # capture -- its working prefix always ends ".../client/", right
+    # before the filename -- against a URL that had none: without the
+    # slash, Steam requests ".../client-testing<filename>" instead of
+    # ".../client-testing/<filename>", 404ing on every single file. The
+    # HTTPS/TLS-layer theory that motivated the plain-HTTP :420 test
+    # below was a red herring; this one-character bug fully explains why
+    # the downgrader never worked, regardless of scheme or port.
+    #
+    # drazy's local dev placeholder, kept for reference -- swap this back
+    # in (with a trailing slash!) when testing against a local server:
+    # Headcrab_Downgrade_URL="http://localhost:1666/"
+    Headcrab_Downgrade_URL="http://headcrab.bifrosthub.ru:420/client-testing/"
 	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
     DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
 	Headcrab_Native="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
