@@ -20,7 +20,21 @@
     Headcrab_Downgrader_Path=$HOME/.headcrab
 	
 	#URL'S
-    Headcrab_Downgrade_URL="http://localhost:1666"
+    # main is the stable branch -- deliberately pinned to the /client-stable
+    # mirror tier (one cycle behind /client-latest), not the bleeding-edge
+    # pin. See h3adcr-b-modul3s's update-sources.py for how stable-sources.txt
+    # gets cycled in.
+    #
+    # Trailing slash is load-bearing: Steam's -overridepackageurl appends
+    # the target filename directly onto this string with no separator of
+    # its own. Confirmed 2026-08-21 (see testing branch's identical fix) --
+    # without the slash every request came out as ".../client-stable<filename>"
+    # instead of ".../client-stable/<filename>", 404ing unconditionally.
+    #
+    # drazy's local dev placeholder, kept for reference -- swap this back
+    # in (with a trailing slash!) when testing against a local server:
+    # Headcrab_Downgrade_URL="http://localhost:1666/"
+    Headcrab_Downgrade_URL="https://headcrab.bifrosthub.ru/client-stable/"
 	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
     DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
 	Headcrab_Native="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
