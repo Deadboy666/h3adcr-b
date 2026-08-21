@@ -427,7 +427,7 @@
 	
     TrashiteWatMani(){
 		wheresteampackage
-		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed"]; then
+		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
 			echo "Headcrab Downloading Bazzite-Deck Client Manifest"
 			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		else
