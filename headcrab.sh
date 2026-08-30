@@ -770,7 +770,7 @@
             local TAG
             TAG=$(curl -sSL --connect-timeout 15 --max-time 30 \
                 -o /dev/null -w "%{url_effective}" \
-                "yesyes0649/steamnetsock-patch/releases/latest" 2>/dev/null)
+                "https://github.com/yesyes0649/steamnetsock-patch/releases/latest" 2>/dev/null)
             TAG="${TAG##*/}"
             wget -O netsock.so \
                 "https://github.com/yesyes0649/steamnetsock-patch/releases/download/$TAG/fix.so" &> /dev/null
