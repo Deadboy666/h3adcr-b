@@ -743,10 +743,10 @@
             local TAG
             TAG=$(curl -sSL --connect-timeout 15 --max-time 30 \
                 -o /dev/null -w "%{url_effective}" \
-                "https://github.com/AceSLS/SLSsteam/releases/latest" 2>/dev/null)
+                "https://cdn.jsdelivr.net/gh/AceSLS/SLSsteam@releases/latest" 2>/dev/null)
             TAG="${TAG##*/}"
             wget -O SLSsteam-Any.7z \
-                "https://github.com/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any-release.7z" &> /dev/null
+                "https://cdn.jsdelivr.net/gh/AceSLS/SLSsteam@releases/download/$TAG/SLSsteam-Any-release.7z" &> /dev/null
         }
 		
 		downloadnetsock(){
@@ -756,10 +756,10 @@
             local TAG
             TAG=$(curl -sSL --connect-timeout 15 --max-time 30 \
                 -o /dev/null -w "%{url_effective}" \
-                "https://github.com/yesyes0649/steamnetsock-patch/releases/latest" 2>/dev/null)
+                "https://cdn.jsdelivr.net/gh/yesyes0649/steamnetsock-patch@releases/latest" 2>/dev/null)
             TAG="${TAG##*/}"
             wget -O netsock.so \
-                "https://github.com/yesyes0649/steamnetsock-patch/releases/download/$TAG/fix.so" &> /dev/null
+                "https://cdn.jsdelivr.net/gh/yesyes0649/steamnetsock-patch@releases/download/$TAG/fix.so" &> /dev/null
                 echo "Downloaded Latest Netsock Lib."
 				cd $SCRIPT_DIR/
         }
