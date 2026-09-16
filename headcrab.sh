@@ -18,6 +18,7 @@
     SLSsteamConfigDir=$HOME/.config/SLSsteam
     InstallDir=$SCRIPT_DIR/SLSsteam_Download/bin
     Headcrab_Downgrader_Path=$HOME/.headcrab
+    AnataseSteamAppId=org.anatase.Steam
 	
 	#URL'S
     Headcrab_Downgrade_URL="http://localhost:1666/"
@@ -86,7 +87,12 @@
         read_os_release
         [ "$OS_ID" = "bazzite" ]
         }
-    
+
+    anatasecheck(){
+        read_os_release
+        [ "$OS_ID" = "anatase" ]
+        }
+
     flatpakcheck(){
         [ -d "$FlatpakSteamInstallDir" ]
         }
@@ -138,6 +144,26 @@
             echo "SteamClientChannel: Beta (Bazzite-Desktop)"
         fi
             echo "SteamClientType: Bazzite"
+        }
+
+	AnataseClientCheck(){
+        if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase-Deck)"
+        elif [ -f steam_client_steamdeck_publicbeta_ubuntu12.manifest ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Beta (Anatase-Deck)"
+        elif [ -f "steam_client_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase)"
+        elif [ -f "steam_client_ubuntu12" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12 | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase)"
+        else
+            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Beta (Anatase)"
+        fi
+            echo "SteamClientType: Anatase"
         }
 
 	CachyClientCheck(){
@@ -197,6 +223,8 @@
             SteamOSClientCheck
 		elif bazzitecheck; then
             BazziteClientCheck
+        elif anatasecheck; then
+            AnataseClientCheck
 		elif cachyoscheck; then
 			CachyClientCheck
 		elif voidcheck; then
@@ -434,6 +462,18 @@
 		fi
 			echo "" &> /dev/null
 		}
+
+	AnataseWatMani(){
+		wheresteampackage
+		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
+			echo "Headcrab Downloading Anatase-Deck Client Manifest"
+			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
+		else
+			echo "Headcrab Downloading Anatase Client Manifest"
+			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
+		fi
+			echo "" &> /dev/null
+		}
 		
     DownloadClientManifest(){
 	    if steamoscheck; then
@@ -443,6 +483,8 @@
 			TrashiteWatMani
 		elif cachyoscheck; then
 			CachyWatMani
+		elif anatasecheck; then
+			AnataseWatMani
 	    else
 	        echo "Headcrab Downloading Linux Client Manifest.."
 	        wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
@@ -511,6 +553,10 @@
 			echo "Bazzite Detected"
             echo "Headcrab Bootstrapping SLSsteam.."
            export_sls wheresteam -exitsteam
+		elif anatasecheck; then
+			echo "Anatase Detected"
+            echo "Headcrab Bootstrapping SLSsteam.."
+           export_sls wheresteam -clearbeta -exitsteam
 		elif cachyoscheck; then
 			echo "CachyOS Detected"
             echo "Headcrab Bootstrapping SLSsteam.."
@@ -538,7 +584,9 @@
             }
         
     wheresteam(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
+        if anatasecheck; then
+                flatpak run $AnataseSteamAppId "$@" &> /dev/null
+        elif [ -d "$FlatpakSteamInstallDir" ]; then
                 flatpak run com.valvesoftware.Steam "$@" &> /dev/null
         else
                 steam "$@" &> /dev/null
@@ -608,6 +656,8 @@
             config_file="$PWD/config.yaml"
 
             if [ ! -f "$config_file" ]; then
+                cp -f "$latest_config" "$config_file"
+                echo "SLSsteam Config Created From Template"
                 return
             fi
 
@@ -718,6 +768,12 @@
             #dgsc
             echo "Headcrab Connecting to The Updater.."
            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
+        elif anatasecheck; then
+            echo "Anatase Detected"
+            createsteamcfg
+            #dgsc
+            echo "Headcrab Connecting to The Updater.."
+            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         else
             createsteamcfg
             #dgsc
