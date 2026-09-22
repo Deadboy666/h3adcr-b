@@ -32,7 +32,7 @@
 	CloudRedirectCLI="https://runn.i.ng/https://github.com/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect_cli"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
-	cloudredirect="https://cdn.jsdelivr.net/gh/Selectively11/CloudRedirect@refs/heads/gh-pages/cloudredirect.flatpakrepo"
+	cloudredirect="https://runn.i.ng/https://github.com/Selectively11/CloudRedirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
     Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
 	Headcrab_Updater="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab.desktop"
