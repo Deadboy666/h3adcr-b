@@ -30,8 +30,6 @@
 	Headcrab_Client="https://cdn.jsdelivr.net/gh/Deadboy666/SteamTracking@refs/heads/master/ClientExtracted/steam.sh"
 	CloudRedirectLib="https://runn.i.ng/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect.so"
 	CloudRedirectCLI="https://runn.i.ng/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect_cli"
-    dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
-    dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
 	cloudredirect="https://runn.i.ng/Selectively11/CloudRedirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
     Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
@@ -449,55 +447,12 @@
 	    fi
 	        echo "Client Manifest Downloaded"
     }
-    
-    download_dgsc(){
-        mkdir -p $Headcrab_Downgrader_Path
-        cd $Headcrab_Downgrader_Path/
-        if [ -f "$Headcrab_Downgrader_Path/dgsc" ]; then
-            echo "Headcrab_dgsc Downloaded Already."
-        else
-            echo "Downloading Headcrab_dgsc.."
-            wget "$dgsc" &> /dev/null
-            chmod +x dgsc
-        fi
-          echo "" &> /dev/null
-        }
-        
-        download_dlm(){
-        mkdir -p $Headcrab_Downgrader_Path
-        cd $Headcrab_Downgrader_Path/
-        if [ -f "$Headcrab_Downgrader_Path/dlm" ]; then
-            echo "Headcrab_dlm Downloaded Already."
-        else
-            echo "Downloading Headcrab_dlm.."
-            wget "$dlm" &> /dev/null
-            chmod +x dlm
-        fi
-          echo "" &> /dev/null
-        }
-        
-        dlm(){
-        download_dlm
-        echo "Running Fetching Client Update Headcrab_dlm.."
-        wheresteampackage
-        $Headcrab_Downgrader_Path/dlm --input-file sources.txt --max-concurrent 16
-        echo "Headcrab_dlm Fetched Client Update"
-        }
-        
-    dgsc(){
-        download_dgsc
-        echo "Running Headcrab_dgsc.."
-        wheresteampackage
-        $Headcrab_Downgrader_Path/dgsc --port 1666 --silent & sleep 1s "$@"
-        }
         
     prepdowngrade(){
         wheresteamcfg
         rm package/*
         wheresteampackage
-        wget -O sources.txt "$Sources" &> /dev/null
         DownloadClientManifest
-		#dlm
         }
         
     clientinstall(){
