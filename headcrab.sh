@@ -2,7 +2,7 @@
 
 
     #Headcrab Compatibile Client Version
-    HeadcrabCompatibleClientVer=1785799196
+    HeadcrabCompatibleClientVer=1788652215
     
     #Paths
     SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -20,45 +20,23 @@
     Headcrab_Downgrader_Path=$HOME/.headcrab
 	
 	#URL'S
-    # This is the "testing" branch's own headcrab.sh, deliberately pointed
-    # at the separate /client-testing mirror (not /client, which the
-    # stable branch uses) -- so drazy can push whatever pin he's
-    # experimenting with here without touching what stable users get.
-    # A real version-selector (letting a user pick stable vs testing at
-    # runtime) is planned but not built yet -- this is just the two
-    # mirrors existing and staying independent for now.
-    #
-    # Trailing slash is load-bearing: Steam's -overridepackageurl appends
-    # the target filename directly onto this string with no separator of
-    # its own (confirmed 2026-08-21 by diffing a working Wayback Machine
-    # capture -- its working prefix always ends ".../client/", right
-    # before the filename -- against a URL that had none: without the
-    # slash, Steam requests ".../client-testing<filename>" instead of
-    # ".../client-testing/<filename>", 404ing on every single file. The
-    # HTTPS/TLS-layer theory that motivated the plain-HTTP :420 test
-    # below was a red herring; this one-character bug fully explains why
-    # the downgrader never worked, regardless of scheme or port.
-    #
-    # drazy's local dev placeholder, kept for reference -- swap this back
-    # in (with a trailing slash!) when testing against a local server:
-    # Headcrab_Downgrade_URL="http://localhost:1666/"
-    Headcrab_Downgrade_URL="http://headcrab.bifrosthub.ru:420/client-testing/"
-	LinuxClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
-    DeckClientManifest="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
-	Headcrab_Native="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
-    Headcrab_Native_CR="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_native.sh"
-	Headcrab_Flatpak="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_flatpak.sh"
-    Headcrab_Flatpak_CR="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_flatpak.sh"
-	Headcrab_Client="https://raw.githubusercontent.com/Deadboy666/SteamTracking/refs/heads/master/ClientExtracted/steam.sh"
-	CloudRedirectLib="https://github.com/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect.so"
-	CloudRedirectCLI="https://github.com/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect_cli"
+    Headcrab_Downgrade_URL="http://localhost:1666/"
+	LinuxClientManifest="https://cdn.jsdelivr.net/gh/Deadboy666/SteamTracking@refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
+    DeckClientManifest="https://cdn.jsdelivr.net/gh/Deadboy666/SteamTracking@refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
+	Headcrab_Native="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab_native.sh"
+    Headcrab_Native_CR="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/cr-test/headcrab_native.sh"
+	Headcrab_Flatpak="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab_flatpak.sh"
+    Headcrab_Flatpak_CR="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/cr-test/headcrab_flatpak.sh"
+	Headcrab_Client="https://cdn.jsdelivr.net/gh/Deadboy666/SteamTracking@refs/heads/master/ClientExtracted/steam.sh"
+	CloudRedirectLib="https://runn.i.ng/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect.so"
+	CloudRedirectCLI="https://runn.i.ng/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect_cli"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
-	cloudredirect="https://raw.githubusercontent.com/Selectively11/CloudRedirect/refs/heads/gh-pages/cloudredirect.flatpakrepo"
+	cloudredirect="https://runn.i.ng/Selectively11/CloudRedirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
-    Sources="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/stable-sources.txt"
-	Headcrab_Updater="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.desktop"
-	Headcrab_Icon="https://raw.githubusercontent.com/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.png"
+    Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
+	Headcrab_Updater="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab.desktop"
+	Headcrab_Icon="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab.png"
 	
     read_os_release(){
         local f
@@ -775,13 +753,8 @@
             echo "Downloading Latest Netsock Lib.."
             mkdir -p ~/.config/SLSsteam/tools/netsock
             cd ~/.config/SLSsteam/tools/netsock
-            local TAG
-            TAG=$(curl -sSL --connect-timeout 15 --max-time 30 \
-                -o /dev/null -w "%{url_effective}" \
-                "yesyes0649/steamnetsock-patch/releases/latest" 2>/dev/null)
-            TAG="${TAG##*/}"
             wget -O netsock.so \
-                "https://github.com/yesyes0649/steamnetsock-patch/releases/download/$TAG/fix.so" &> /dev/null
+                "https://cdn.jsdelivr.net/gh/yesyes0649/steamnetsock-patch@builds/fix.so" &> /dev/null
                 echo "Downloaded Latest Netsock Lib."
 				cd $SCRIPT_DIR/
         }
