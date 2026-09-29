@@ -822,8 +822,8 @@
 		    flatpak install --user --reinstall org.cloudredirect.CloudRedirect --assumeyes --noninteractive
 		    update-desktop-database
         wget -O cloud_redirect.so "$CloudRedirectLib" &> /dev/null
-		wget -O cloud_redirect_lib "$CloudRedirectCLI" &> /dev/null
-		chmod 777 cloud_redirect_lib
+		wget -O cloud_redirect_cli "$CloudRedirectCLI" &> /dev/null
+		chmod 777 cloud_redirect_cli
         echo "Latest Cloud Redirect Library Downloaded"
       else
         echo "User Is Not Using Cloud Redirect Skipping.."
