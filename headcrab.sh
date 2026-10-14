@@ -2,7 +2,7 @@
 
 
     #Headcrab Compatibile Client Version
-    HeadcrabCompatibleClientVer=1788652215
+    HeadcrabCompatibleClientVer=1791918634
     
     #Paths
     SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -20,7 +20,8 @@
     Headcrab_Downgrader_Path=$HOME/.headcrab
 	
 	#URL'S
-    Headcrab_Downgrade_URL="http://web.archive.org/web/20261006145653if_/media.steampowered.com/client/"
+	Headcrab_Downgrade_URL=""
+    #Headcrab_Downgrade_URL="http://web.archive.org/web/20261006145653if_/media.steampowered.com/client/"
 	LinuxClientManifest="https://cdn.jsdelivr.net/gh/Deadboy666/SteamTracking@refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
     DeckClientManifest="https://cdn.jsdelivr.net/gh/Deadboy666/SteamTracking@refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
 	Headcrab_Native="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab_native.sh"
