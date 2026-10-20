@@ -20,8 +20,8 @@
     Headcrab_Downgrader_Path=$HOME/.headcrab
 	
 	#URL'S
-	#Headcrab_Downgrade_URL="http://localhost:1666/"
-    Headcrab_Downgrade_URL="http://web.archive.org/web/20261014102820if_/media.steampowered.com/client/"
+	Headcrab_Downgrade_URL="http://localhost:1666/"
+    #Headcrab_Downgrade_URL="http://web.archive.org/web/20261014102820if_/media.steampowered.com/client/"
 	LinuxClientManifest="https://runn.i.ng/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
     DeckClientManifest="https://runn.i.ng/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
 	Headcrab_Native="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
