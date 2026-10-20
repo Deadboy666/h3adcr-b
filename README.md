@@ -1,4 +1,4 @@
-# <img src="https://github.com/Deadboy666/h3adcr-b-modul3s/blob/main/headcrab.png?raw=true" alt="Project Logo" width="175" height="175">h3adcr-b-beta
+# <img src="https://github.com/Deadboy666/h3adcr-b-modul3s/blob/main/headcrab.png?raw=true" alt="Project Logo" width="175" height="175">h3adcr-b
 Headcrab is a rootless Steam client compatibility helper
 - **Requirements**: `wget`, `curl`, `grep`, `awk`, `sed`, `7zip`
 ## Features
