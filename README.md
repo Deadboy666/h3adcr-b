@@ -1,4 +1,4 @@
-# <img src="https://github.com/Deadboy666/h3adcr-b-modul3s/blob/main/headcrab.png?raw=true" alt="Project Logo" width="175" height="175">h3adcr-b
+# <img src="https://github.com/Deadboy666/h3adcr-b-modul3s/blob/main/headcrab.png?raw=true" alt="Project Logo" width="175" height="175">h3adcr-b-beta
 Headcrab is a rootless Steam client compatibility helper
 - **Requirements**: `wget`, `curl`, `grep`, `awk`, `sed`, `7zip`
 ## Features
@@ -42,7 +42,7 @@ curl -fsSL headcrab.pages.dev | bash
 ```
 * Incase the Redirect Doesnt work.
 ```bash
-curl -fsSL "https://runn.i.ng/Deadboy666/h3adcr-b/refs/heads/main/headcrab.sh" | bash
+curl -fsSL "https://runn.i.ng/Deadboy666/h3adcr-b/refs/heads/testing/headcrab.sh" | bash
 ```
 
 - For Troubleshooting h3adcr-b* [View the Wiki](https://github.com/Deadboy666/h3adcr-b/wiki/Headcrab-Wiki)
