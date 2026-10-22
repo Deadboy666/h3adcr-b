@@ -148,7 +148,7 @@
         elif [ -f steam_client_steamdeck_publicbeta_ubuntu12 ]; then
             versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12 | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta (CachyOS-Handheld)"
-		elif [ -f "steam_client_ubuntu12.manifest" ]; then
+		elif [ -f "steam_client_ubuntu12" ]; then
             versionnumber=$(grep '"version"' steam_client_ubuntu12 | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable (CachyOS-Desktop)"
 		else
@@ -170,8 +170,8 @@
         }
 
     NativeClientCheck(){
-        if [ -f "steam_client_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+        if [ -f "steam_client_ubuntu12" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12 | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable"
         else
             versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
