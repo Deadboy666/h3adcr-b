@@ -2,7 +2,7 @@
 
 
     #Headcrab Compatibile Client Version
-    HeadcrabCompatibleClientVer=1791918634
+    HeadcrabCompatibleClientVer=1792618285
     
     #Paths
     SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -29,11 +29,11 @@
 	Headcrab_Flatpak="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_flatpak.sh"
     Headcrab_Flatpak_CR="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_flatpak.sh"
 	Headcrab_Client="https://runn.i.ng//Deadboy666/SteamTracking/refs/heads/master/ClientExtracted/steam.sh"
-	CloudRedirectLib="https://runn.i.ng/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect.so"
-	CloudRedirectCLI="https://runn.i.ng/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect_cli"
+	CloudRedirectLib="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect.so"
+	CloudRedirectCLI="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect_cli"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
-	cloudredirect="https://runn.i.ng/Selectively11/CloudRedirect/blob/gh-pages/cloudredirect.flatpakrepo"
+	cloudredirect="https://runn.i.ng/crghofficial/cloudredirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
     Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
 	Headcrab_Updater="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab.desktop"
