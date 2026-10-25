@@ -816,7 +816,7 @@
         echo "Downloading Latest Cloud Redirect Library"
         whereCR_Install
 		 echo "Installing Cloud Redirect App"
-		    flatpak --user remote-delete cloudredirect
+		    flatpak remote-delete --user cloudredirect --assumeyes --noninteractive
 		    flatpak remote-add --user --if-not-exists cloudredirect $cloudredirect
 		    flatpak remote-add --user --if-not-exists flathub $flathub
 		    flatpak --user update --appstream --noninteractive
