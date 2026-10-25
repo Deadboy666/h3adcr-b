@@ -566,8 +566,10 @@
     wheresteamcfg(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
                cd $FlatpakSteamInstallDir/
+			   echo "" &> .steam-disable-steamrt64-client
         else
                 cd $SteamInstallDir/
+				echo "" &> .steam-disable-steamrt64-client
             fi
                 echo "" &> /dev/null
             }
