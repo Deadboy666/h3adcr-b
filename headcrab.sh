@@ -16,6 +16,7 @@
     CloudRedirectDir=$HOME/.local/share/CloudRedirect
 	SLSsteamInstallDir=$HOME/.local/share/SLSsteam
     SLSsteamConfigDir=$HOME/.config/SLSsteam
+    AnataseSteamAppId=org.anatase.Steam
     InstallDir=$SCRIPT_DIR/SLSsteam_Download/bin
     Headcrab_Downgrader_Path=$HOME/.headcrab
 	
@@ -87,7 +88,12 @@
         read_os_release
         [ "$OS_ID" = "bazzite" ]
         }
-    
+
+    anatasecheck(){
+        read_os_release
+        [ "$OS_ID" = "anatase" ]
+    }
+
     flatpakcheck(){
         [ -d "$FlatpakSteamInstallDir" ]
         }
@@ -140,6 +146,30 @@
         fi
             echo "SteamClientType: Bazzite"
         }
+
+    AnataseClientCheck(){
+        # Anatase uses the host Steam files via host-xdg-dirs.
+        if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase-Deck)"
+        elif [ -f "steam_client_steamdeck_publicbeta_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Beta (Anatase-Deck)"
+        elif [ -f "steam_client_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase)"
+        elif [ -f "steam_client_ubuntu12" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12 | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase)"
+        elif [ -f "steam_client_publicbeta_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Beta (Anatase)"
+        else
+            versionnumber="unknown"
+            echo "SteamClientChannel: Unknown (Anatase)"
+        fi
+        echo "SteamClientType: Anatase"
+    }
 
 	CachyClientCheck(){
         if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
@@ -198,6 +228,8 @@
             SteamOSClientCheck
 		elif bazzitecheck; then
             BazziteClientCheck
+        elif anatasecheck; then
+            AnataseClientCheck
 		elif cachyoscheck; then
 			CachyClientCheck
 		elif voidcheck; then
@@ -436,12 +468,25 @@
 			echo "" &> /dev/null
 		}
 		
+    AnataseWatMani(){
+        wheresteampackage
+        if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
+            echo "Headcrab Downloading Anatase-Deck Client Manifest"
+            wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
+        else
+            echo "Headcrab Downloading Anatase Client Manifest"
+            wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
+        fi
+    }
+
     DownloadClientManifest(){
 	    if steamoscheck; then
 	        echo "Headcrab Downloading Steamos Client Manifest.."
 	        wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		elif bazzitecheck; then
 			TrashiteWatMani
+        elif anatasecheck; then
+            AnataseWatMani
 		elif cachyoscheck; then
 			CachyWatMani
 	    else
@@ -512,6 +557,10 @@
 			echo "Bazzite Detected"
             echo "Headcrab Bootstrapping SLSsteam.."
            export_sls wheresteam -exitsteam
+        elif anatasecheck; then
+            echo "Anatase Detected"
+            echo "Headcrab Bootstrapping SLSsteam.."
+            export_sls wheresteam -clearbeta -exitsteam
 		elif cachyoscheck; then
 			echo "CachyOS Detected"
             echo "Headcrab Bootstrapping SLSsteam.."
@@ -539,7 +588,9 @@
             }
         
     wheresteam(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
+        if anatasecheck; then
+                flatpak run "$AnataseSteamAppId" "$@" &> /dev/null
+        elif [ -d "$FlatpakSteamInstallDir" ]; then
                 flatpak run com.valvesoftware.Steam "$@" &> /dev/null
         else
                 steam "$@" &> /dev/null
@@ -548,7 +599,10 @@
             }
             
     wheresteamdir(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
+        if anatasecheck; then
+                mkdir -p "$CloudRedirectDir" "$SLSsteamInstallDir" "$SLSsteamConfigDir"
+                cp -f "$InstallDir/library-inject.so" "$InstallDir/SLSsteam.so" "$SLSsteamInstallDir/"
+        elif [ -d "$FlatpakSteamInstallDir" ]; then
                 mkdir -p $FlatpakSLSsteamInstallDir
 				mkdir -p $FlatpakCloudRedirectDir
                 cp -f $InstallDir/library-inject.so $FlatpakSLSsteamInstallDir/
@@ -564,7 +618,10 @@
             }
             
     wheresteamcfg(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
+        if anatasecheck; then
+                cd "$SteamInstallDir/" || return 1
+                : > .steam-disable-steamrt64-client
+        elif [ -d "$FlatpakSteamInstallDir" ]; then
                cd $FlatpakSteamInstallDir/
 			   echo "" &> .steam-disable-steamrt64-client
         else
@@ -575,7 +632,9 @@
             }
 			
 	wheresteampackage(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
+        if anatasecheck; then
+                cd "$SteamInstallDir/package" || return 1
+        elif [ -d "$FlatpakSteamInstallDir" ]; then
                cd $FlatpakSteamInstallDir/package
         else
                 cd $SteamInstallDir/package
@@ -584,7 +643,11 @@
             }
 
     whereSLSsteamconfig(){
-        if [ -d "$FlatpakSLSsteamConfigDir" ]; then
+        # Anatase's host-xdg-dirs makes the host XDG config visible in the sandbox.
+        if anatasecheck; then
+               mkdir -p "$SLSsteamConfigDir"
+               cd "$SLSsteamConfigDir/" || return 1
+        elif [ -d "$FlatpakSLSsteamConfigDir" ]; then
                mkdir -p $FlatpakSLSsteamConfigDir
                cd $FlatpakSLSsteamConfigDir/
         else
@@ -762,12 +825,62 @@
 				cd $SCRIPT_DIR/
         }
     
+    provide_anatase_i386_libcrypto(){
+        # The injected 32-bit SLSsteam.so needs libcrypto.so.3, which is
+        # absent from Anatase's runtime. Reuse the installed i386 compat runtime.
+        local dest="$SLSsteamInstallDir/libcrypto.so.3"
+        local root src candidate
+        mkdir -p "$SLSsteamInstallDir" || return 1
+        if [ -f "$dest" ]; then
+            return 0
+        fi
+        for root in /var/lib/flatpak/runtime "$HOME/.local/share/flatpak/runtime"; do
+            [ -d "$root" ] || continue
+            while IFS= read -r candidate; do
+                # Only use the 32-bit compat copy; ignore unrelated runtimes.
+                src="$candidate"
+            done < <(find "$root" -path '*/org.freedesktop.Platform.Compat.i386/*' \
+                -name libcrypto.so.3 2>/dev/null | sort -V)
+        done
+        if [ -z "$src" ] || [ ! -f "$src" ]; then
+            echo "Anatase: missing 32-bit libcrypto.so.3 (install the matching Flatpak i386 compat runtime)" >&2
+            return 1
+        fi
+        cp -L -- "$src" "$dest" || return 1
+    }
+
+    apply_anatase_ld_audit(){
+        local audit
+        if ! command -v flatpak >/dev/null 2>&1 || ! flatpak info "$AnataseSteamAppId" >/dev/null 2>&1; then
+            echo "Anatase Steam Flatpak ($AnataseSteamAppId) is not installed" >&2
+            return 1
+        fi
+        provide_anatase_i386_libcrypto || return 1
+        # Recent SLSsteam releases ship an empty, unused library-inject.so.
+        # Only reference it when an older release provides a nonempty library.
+        audit="$SLSsteamInstallDir/SLSsteam.so"
+        if [ ! -s "$SLSsteamInstallDir/SLSsteam.so" ]; then
+            echo "Anatase: SLSsteam.so is missing or empty" >&2
+            return 1
+        fi
+        if [ -s "$SLSsteamInstallDir/library-inject.so" ]; then
+            audit="$SLSsteamInstallDir/library-inject.so:$audit"
+        fi
+        flatpak override --user \
+            --env="LD_AUDIT=$audit" \
+            --env="LD_LIBRARY_PATH=$SLSsteamInstallDir" \
+            "$AnataseSteamAppId" || return 1
+
+    }
+
     export_sls(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
-                copySLSsteam
+        copySLSsteam
+        if anatasecheck; then
+                apply_anatase_ld_audit || return 1
+                "$@"
+        elif [ -d "$FlatpakSteamInstallDir" ]; then
                 LD_AUDIT=$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/library-inject.so:$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/SLSsteam.so "$@"
         else
-                copySLSsteam
                 LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so "$@"
         fi
                 echo &> /dev/null
@@ -868,7 +981,9 @@ EOF
     }
 
     patchsteam(){
-        if [ -d "$FlatpakSteamInstallDir" ]; then
+        if anatasecheck; then
+                patchlocalsteam
+        elif [ -d "$FlatpakSteamInstallDir" ]; then
                 patchflatpaksteam
         else
                 patchlocalsteam
@@ -944,6 +1059,9 @@ EOF
             echo "=================================================="
             editconfig
             patchsteam
+            if anatasecheck; then
+                apply_anatase_ld_audit || return 1
+            fi
             echo "BlockedClientUpdates: Enabled"
             checkcrstatus
             echo "=================================================="
