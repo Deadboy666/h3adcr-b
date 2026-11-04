@@ -842,13 +842,16 @@
 				echo "Steamos Detected Enabled Safemode"
 				sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
 				sed -i "s/^NotifyInit:.*/NotifyInit: yes/" config.yaml
+				sed -i "s/^DisableFamilyShareLock:.*/DisableFamilyShareLock: no/" config.yaml
 				echo "config patched" > .headcrabd
 			elif cachyoscheck; then
 				echo "Cachy OS Detected Adjusted Loglevel"
 				sed -i "s/^LogLevels:.*/LogLevels: 0x3f/" config.yaml
 				sed -i "s/^SafeMode:.*/SafeMode: no/" config.yaml
+				sed -i "s/^DisableFamilyShareLock:.*/DisableFamilyShareLock: no/" config.yaml
 				echo "config patched" > .headcrabd
 			else
+			    sed -i "s/^DisableFamilyShareLock:.*/DisableFamilyShareLock: no/" config.yaml
                 sed -i "s/^SafeMode:.*/SafeMode: no/" config.yaml
 				echo "config patched" > .headcrabd
             fi
