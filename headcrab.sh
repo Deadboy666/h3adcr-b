@@ -778,7 +778,7 @@
         downloadSLSsteam
          7z x $SCRIPT_DIR/SLSsteam_Download/SLSsteam-Any.7z -aoa > /dev/null
          updateSLSsteamConfig "$SCRIPT_DIR/SLSsteam_Download/res/config.yaml"
-         rm -rf tools
+         mv -f tools $InstallDir/tools
          rm -rf res
          rm setup.sh
          rm -rf docs
