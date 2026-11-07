@@ -2,7 +2,7 @@
 
 
     #Headcrab Compatibile Client Version
-    HeadcrabCompatibleClientVer=1791918634
+    HeadcrabCompatibleClientVer=1792618285
     
     #Paths
     SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -20,20 +20,20 @@
     Headcrab_Downgrader_Path=$HOME/.headcrab
 	
 	#URL'S
-	Headcrab_Downgrade_URL="http://localhost:1666"
-    #Headcrab_Downgrade_URL="http://web.archive.org/web/20261014102820if_/media.steampowered.com/client/"
+	Headcrab_Downgrade_URL="http://localhost:1666/"
+    #Headcrab_Downgrade_URL="http://web.archive.org/web/20261006145653if_/media.steampowered.com/client/"
 	LinuxClientManifest="https://runn.i.ng/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
     DeckClientManifest="https://runn.i.ng/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
-	Headcrab_Native="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/testing/headcrab_native.sh"
+	Headcrab_Native="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
     Headcrab_Native_CR="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_native.sh"
 	Headcrab_Flatpak="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_flatpak.sh"
     Headcrab_Flatpak_CR="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_flatpak.sh"
 	Headcrab_Client="https://runn.i.ng//Deadboy666/SteamTracking/refs/heads/master/ClientExtracted/steam.sh"
-	CloudRedirectLib="https://runn.i.ng/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect.so"
-	CloudRedirectCLI="https://runn.i.ng/Selectively11/h3adcr-b/releases/download/linux-test/cloud_redirect_cli"
+	CloudRedirectLib="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect.so"
+	CloudRedirectCLI="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect_cli"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
-	cloudredirect="https://runn.i.ng/Selectively11/CloudRedirect/blob/gh-pages/cloudredirect.flatpakrepo"
+	cloudredirect="https://runn.i.ng/crghofficial/cloudredirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
     Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
 	Headcrab_Updater="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab.desktop"
@@ -142,17 +142,17 @@
         }
 
 	CachyClientCheck(){
-        if [ -f "steam_client_steamdeck_stable_ubuntu12" ]; then
-            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_ubuntu12 | awk -F'"' '{print $4}')
+        if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_ubuntu12.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable (CachyOS-Handheld)"
-        elif [ -f steam_client_steamdeck_publicbeta_ubuntu12 ]; then
-            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12 | awk -F'"' '{print $4}')
+        elif [ -f steam_client_steamdeck_publicbeta_ubuntu12.manifest ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta (CachyOS-Handheld)"
-		elif [ -f "steam_client_ubuntu12" ]; then
-            versionnumber=$(grep '"version"' steam_client_ubuntu12 | awk -F'"' '{print $4}')
+		elif [ -f "steam_client_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable (CachyOS-Desktop)"
 		else
-            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12 | awk -F'"' '{print $4}')
+            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta (CachyOS-Desktop)"
         fi
             echo "SteamClientType: CachyOS"
@@ -170,8 +170,8 @@
         }
 
     NativeClientCheck(){
-        if [ -f "steam_client_ubuntu12" ]; then
-            versionnumber=$(grep '"version"' steam_client_ubuntu12 | awk -F'"' '{print $4}')
+        if [ -f "steam_client_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable"
         else
             versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
@@ -416,7 +416,7 @@
 		wheresteampackage
 		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
 			echo "Headcrab Downloading Bazzite-Deck Client Manifest"
-			wget -O steam_client_steamdeck_stable_ubuntu12 "$DeckClientManifest" &> /dev/null
+			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		else
 			echo "Headcrab Downloading Bazzite-Desktop Client Manifest"
 			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
@@ -428,7 +428,7 @@
 		wheresteampackage
 		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
 			echo "Headcrab Downloading CachyOS-Handheld Client Manifest"
-			wget -O steam_client_steamdeck_stable_ubuntu12 "$DeckClientManifest" &> /dev/null
+			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		else
 			echo "Headcrab Downloading CachyOS-Desktop Client Manifest"
 			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
@@ -439,7 +439,7 @@
     DownloadClientManifest(){
 	    if steamoscheck; then
 	        echo "Headcrab Downloading Steamos Client Manifest.."
-	        wget -O steam_client_steamdeck_stable_ubuntu12 "$DeckClientManifest" &> /dev/null
+	        wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		elif bazzitecheck; then
 			TrashiteWatMani
 		elif cachyoscheck; then
@@ -496,9 +496,9 @@
         wheresteamcfg
         rm package/*
         wheresteampackage
-        wget -O sources.txt "$Sources" &> /dev/null
+        #wget -O sources.txt "$Sources" &> /dev/null
         DownloadClientManifest
-		dlm
+		#dlm
         }
         
     clientinstall(){
@@ -566,8 +566,10 @@
     wheresteamcfg(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
                cd $FlatpakSteamInstallDir/
+			   echo "" &> .steam-disable-steamrt64-client
         else
                 cd $SteamInstallDir/
+				echo "" &> .steam-disable-steamrt64-client
             fi
                 echo "" &> /dev/null
             }
@@ -710,22 +712,22 @@
         if steamoscheck; then
             echo "Steamos Detected"
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
 		elif bazzitecheck; then
 			echo "Bazzite Detected"
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
            export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         else
             createsteamcfg
-            dgsc
+            #dgsc
             echo "Headcrab Connecting to The Updater.."
             export_sls wheresteam  -forcesteamupdate -forcepackagedownload -overridepackageurl "$Headcrab_Downgrade_URL" -exitsteam &> /dev/null
         fi
-            killall dgsc
+            #killall dgsc
             echo "Compatible Update Applied Via Headcrab_dgsc"
             }
             
@@ -776,7 +778,7 @@
         downloadSLSsteam
          7z x $SCRIPT_DIR/SLSsteam_Download/SLSsteam-Any.7z -aoa > /dev/null
          updateSLSsteamConfig "$SCRIPT_DIR/SLSsteam_Download/res/config.yaml"
-         rm -rf tools
+         mv -f tools $InstallDir/tools
          rm -rf res
          rm setup.sh
          rm -rf docs
@@ -816,6 +818,7 @@
         echo "Downloading Latest Cloud Redirect Library"
         whereCR_Install
 		 echo "Installing Cloud Redirect App"
+		    flatpak remote-delete --user cloudredirect --force
 		    flatpak remote-add --user --if-not-exists cloudredirect $cloudredirect
 		    flatpak remote-add --user --if-not-exists flathub $flathub
 		    flatpak --user update --appstream --noninteractive
@@ -839,13 +842,16 @@
 				echo "Steamos Detected Enabled Safemode"
 				sed -i "s/^SafeMode:.*/SafeMode: yes/" config.yaml
 				sed -i "s/^NotifyInit:.*/NotifyInit: yes/" config.yaml
+				sed -i "s/^DisableFamilyShareLock:.*/DisableFamilyShareLock: no/" config.yaml
 				echo "config patched" > .headcrabd
 			elif cachyoscheck; then
 				echo "Cachy OS Detected Adjusted Loglevel"
 				sed -i "s/^LogLevels:.*/LogLevels: 0x3f/" config.yaml
 				sed -i "s/^SafeMode:.*/SafeMode: no/" config.yaml
+				sed -i "s/^DisableFamilyShareLock:.*/DisableFamilyShareLock: no/" config.yaml
 				echo "config patched" > .headcrabd
 			else
+			    sed -i "s/^DisableFamilyShareLock:.*/DisableFamilyShareLock: no/" config.yaml
                 sed -i "s/^SafeMode:.*/SafeMode: no/" config.yaml
 				echo "config patched" > .headcrabd
             fi
