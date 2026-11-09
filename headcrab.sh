@@ -51,7 +51,12 @@
         OS_ID=${ID:-}
         OS_ID_LIKE=${ID_LIKE:-}
     }
-
+	
+	anatasecheck(){
+        read_os_release
+        [ "$OS_ID" = "anatase" ]
+    }
+	
     archcheck(){
         read_os_release
         case " $OS_ID $OS_ID_LIKE " in
@@ -140,6 +145,29 @@
         fi
             echo "SteamClientType: Bazzite"
         }
+		
+		AnataseClientCheck(){
+        if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase-Deck)"
+        elif [ -f "steam_client_steamdeck_publicbeta_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Beta (Anatase-Deck)"
+        elif [ -f "steam_client_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase)"
+        elif [ -f "steam_client_ubuntu12" ]; then
+            versionnumber=$(grep '"version"' steam_client_ubuntu12 | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase)"
+        elif [ -f "steam_client_publicbeta_ubuntu12.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Beta (Anatase)"
+        else
+            versionnumber="unknown"
+            echo "SteamClientChannel: Unknown (Anatase)"
+        fi
+        echo "SteamClientType: Anatase"
+    }
 
 	CachyClientCheck(){
         if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
@@ -198,6 +226,8 @@
             SteamOSClientCheck
 		elif bazzitecheck; then
             BazziteClientCheck
+		elif anatasecheck; then
+            AnataseClientCheck
 		elif cachyoscheck; then
 			CachyClientCheck
 		elif voidcheck; then
@@ -435,6 +465,18 @@
 		fi
 			echo "" &> /dev/null
 		}
+	
+	AnataseWatMani(){
+        wheresteampackage
+        if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
+            echo "Headcrab Downloading Anatase-Deck Client Manifest"
+            wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
+        else
+            echo "Headcrab Downloading Anatase Client Manifest"
+            wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
+        fi
+			echo "" &> /dev/null
+        }
 		
     DownloadClientManifest(){
 	    if steamoscheck; then
@@ -442,6 +484,8 @@
 	        wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
 		elif bazzitecheck; then
 			TrashiteWatMani
+		elif anatasecheck; then
+            AnataseWatMani
 		elif cachyoscheck; then
 			CachyWatMani
 	    else
@@ -512,6 +556,10 @@
 			echo "Bazzite Detected"
             echo "Headcrab Bootstrapping SLSsteam.."
            export_sls wheresteam -exitsteam
+		elif anatasecheck; then
+            echo "Anatase Detected"
+            echo "Headcrab Bootstrapping SLSsteam.."
+            export_sls wheresteam -clearbeta -exitsteam
 		elif cachyoscheck; then
 			echo "CachyOS Detected"
             echo "Headcrab Bootstrapping SLSsteam.."
