@@ -22,7 +22,7 @@ Headcrab is a rootless Steam client compatibility helper
 ## Supported Client Installs:
   - Native Installs (Requirements: `Steam For Linux`)
   - Flatpak Installs (Same but in a container)
-  - Handheld/HTPC Installs (ex. `SteamOS`, `CachyOS`, `Chimera`, `Bazzite`,`Nobara`)
+  - Handheld/HTPC Installs (ex. `SteamOS`, `CachyOS`, `Chimera`, `Bazzite`,`Nobara`,`Nobara`)
 
  ## Distro's Supported By h3adcr-b.
    * Fedora Based Distros
