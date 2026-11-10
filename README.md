@@ -19,10 +19,9 @@ Headcrab is a rootless Steam client compatibility helper
 - follow the steps linked here then run headcrab :)
 - https://github.com/Deadboy666/h3adcr-b/wiki/Headcrab-Troubleshooting-For-Steamos
 
-## Disclaimer For Bazzite/Anatase Users
-- TLDR Bazzite 45/Anatase stopped shipping a dep needed for SLS So theres a workaround you will have to do only once.
+## Disclaimer For 32bit steam client users
 - follow the steps linked here then run headcrab :)
-- https://github.com/Deadboy666/h3adcr-b/wiki/Headcrab-Troubleshooting-For-Bazzite-Anatase
+- https://github.com/Deadboy666/h3adcr-b/wiki/Headcrab-Troubleshooting-For-SLSsteam-Injection
 
 ## Supported Client Installs:
   - Native Installs (Requirements: `Steam For Linux`)
