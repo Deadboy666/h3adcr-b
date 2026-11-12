@@ -893,7 +893,7 @@
 				echo "config patched" > .headcrabd
 			elif cachyoscheck; then
 				echo "Cachy OS Detected Adjusted Loglevel"
-				sed -i "s/^LogLevels:.*/LogLevels: 0x3f/" config.yaml
+				sed -i "s/^LogLevels:.*/LogLevels: 0xff/" config.yaml
 				sed -i "s/^SafeMode:.*/SafeMode: no/" config.yaml
 				sed -i "s/^DisableFamilyShareLock:.*/DisableFamilyShareLock: no/" config.yaml
 				echo "config patched" > .headcrabd
