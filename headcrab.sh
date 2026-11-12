@@ -2,7 +2,7 @@
 
 
     #Headcrab Compatibile Client Version
-    HeadcrabCompatibleClientVer=1792618285
+    HeadcrabCompatibleClientVer=1794424036
     
     #Paths
     SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -22,8 +22,8 @@
 	#URL'S
 	Headcrab_Downgrade_URL="http://localhost:1666/"
     #Headcrab_Downgrade_URL="http://web.archive.org/web/20261006145653if_/media.steampowered.com/client/"
-	LinuxClientManifest="https://runn.i.ng/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_ubuntu12"
-    DeckClientManifest="https://runn.i.ng/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_ubuntu12"
+	LinuxClientManifest="https://runn.i.ng/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamrt64"
+    DeckClientManifest="https://runn.i.ng/Deadboy666/SteamTracking/refs/heads/headcrab/ClientManifest/steam_client_steamdeck_stable_steamrt64"
 	Headcrab_Native="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_native.sh"
     Headcrab_Native_CR="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_native.sh"
 	Headcrab_Flatpak="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_flatpak.sh"
@@ -51,7 +51,12 @@
         OS_ID=${ID:-}
         OS_ID_LIKE=${ID_LIKE:-}
     }
-
+	
+	anatasecheck(){
+        read_os_release
+        [ "$OS_ID" = "anatase" ]
+    }
+	
     archcheck(){
         read_os_release
         case " $OS_ID $OS_ID_LIKE " in
@@ -111,11 +116,11 @@
 	}
         
     SteamOSClientCheck(){
-        if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_ubuntu12.manifest | awk -F'"' '{print $4}')
+        if [ -f "steam_client_steamdeck_stable_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable"
-        elif [ -f steam_client_steamdeck_publicbeta_ubuntu12.manifest ]; then
-            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+        elif [ -f steam_client_steamdeck_publicbeta_steamrt64.manifest ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
 			echo "SteamClientChannel: Beta"
 			echo "Reverting To Stable Client With DGSC"
 		else
@@ -125,67 +130,90 @@
         }
 		
 	BazziteClientCheck(){
-        if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_ubuntu12.manifest | awk -F'"' '{print $4}')
+        if [ -f "steam_client_steamdeck_stable_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable (Bazzite-Deck)"
-        elif [ -f steam_client_steamdeck_publicbeta_ubuntu12.manifest ]; then
-            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+        elif [ -f steam_client_steamdeck_publicbeta_steamrt64.manifest ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta (Bazzite-Deck)"
-		elif [ -f "steam_client_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+		elif [ -f "steam_client_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable (Bazzite-Desktop)"
 		else
-            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            versionnumber=$(grep '"version"' steam_client_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta (Bazzite-Desktop)"
         fi
             echo "SteamClientType: Bazzite"
         }
+		
+		AnataseClientCheck(){
+        if [ -f "steam_client_steamdeck_stable_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_steamrt64.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase-Deck)"
+        elif [ -f "steam_client_steamdeck_publicbeta_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Beta (Anatase-Deck)"
+        elif [ -f "steam_client_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamrt64.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase)"
+        elif [ -f "steam_client_steamrt64" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamrt64 | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Stable (Anatase)"
+        elif [ -f "steam_client_publicbeta_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
+            echo "SteamClientChannel: Beta (Anatase)"
+        else
+            versionnumber="unknown"
+            echo "SteamClientChannel: Unknown (Anatase)"
+        fi
+        echo "SteamClientType: Anatase"
+    }
 
 	CachyClientCheck(){
-        if [ -f "steam_client_steamdeck_stable_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_ubuntu12.manifest | awk -F'"' '{print $4}')
+        if [ -f "steam_client_steamdeck_stable_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_stable_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable (CachyOS-Handheld)"
-        elif [ -f steam_client_steamdeck_publicbeta_ubuntu12.manifest ]; then
-            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+        elif [ -f steam_client_steamdeck_publicbeta_steamrt64.manifest ]; then
+            versionnumber=$(grep '"version"' steam_client_steamdeck_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta (CachyOS-Handheld)"
-		elif [ -f "steam_client_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+		elif [ -f "steam_client_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable (CachyOS-Desktop)"
 		else
-            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            versionnumber=$(grep '"version"' steam_client_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta (CachyOS-Desktop)"
         fi
             echo "SteamClientType: CachyOS"
         }
 
     FlatpakClientCheck(){
-        if [ -f "steam_client_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+        if [ -f "steam_client_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable"
         else
-            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            versionnumber=$(grep '"version"' steam_client_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta"
         fi
             echo "SteamClientType: Flatpak"
         }
 
     NativeClientCheck(){
-        if [ -f "steam_client_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+        if [ -f "steam_client_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable"
         else
-            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            versionnumber=$(grep '"version"' steam_client_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta"
         fi
             echo "SteamClientType: Native"
         }
 		
 	VoidClientCheck(){
-        if [ -f "steam_client_ubuntu12.manifest" ]; then
-            versionnumber=$(grep '"version"' steam_client_ubuntu12.manifest | awk -F'"' '{print $4}')
+        if [ -f "steam_client_steamrt64.manifest" ]; then
+            versionnumber=$(grep '"version"' steam_client_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Stable"
         else
-            versionnumber=$(grep '"version"' steam_client_publicbeta_ubuntu12.manifest | awk -F'"' '{print $4}')
+            versionnumber=$(grep '"version"' steam_client_publicbeta_steamrt64.manifest | awk -F'"' '{print $4}')
             echo "SteamClientChannel: Beta"
         fi
             echo "SteamClientType: Void"
@@ -198,6 +226,8 @@
             SteamOSClientCheck
 		elif bazzitecheck; then
             BazziteClientCheck
+		elif anatasecheck; then
+            AnataseClientCheck
 		elif cachyoscheck; then
 			CachyClientCheck
 		elif voidcheck; then
@@ -414,39 +444,53 @@
 	
     TrashiteWatMani(){
 		wheresteampackage
-		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
+		if [ -f "steam_client_steamdeck_stable_steamrt64.installed" ]; then
 			echo "Headcrab Downloading Bazzite-Deck Client Manifest"
-			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
+			wget -O steam_client_steamdeck_stable_steamrt64.manifest "$DeckClientManifest" &> /dev/null
 		else
 			echo "Headcrab Downloading Bazzite-Desktop Client Manifest"
-			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
+			wget -O steam_client_steamrt64.manifest "$LinuxClientManifest" &> /dev/null
 		fi
 			echo "" &> /dev/null
 		}
 
 	CachyWatMani(){
 		wheresteampackage
-		if [ -f "steam_client_steamdeck_stable_ubuntu12.installed" ]; then
+		if [ -f "steam_client_steamdeck_stable_steamrt64.installed" ]; then
 			echo "Headcrab Downloading CachyOS-Handheld Client Manifest"
-			wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
+			wget -O steam_client_steamdeck_stable_steamrt64.manifest "$DeckClientManifest" &> /dev/null
 		else
 			echo "Headcrab Downloading CachyOS-Desktop Client Manifest"
-			wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
+			wget -O steam_client_steamrt64.manifest "$LinuxClientManifest" &> /dev/null
 		fi
 			echo "" &> /dev/null
 		}
+	
+	AnataseWatMani(){
+        wheresteampackage
+        if [ -f "steam_client_steamdeck_stable_steamrt64.installed" ]; then
+            echo "Headcrab Downloading Anatase-Deck Client Manifest"
+            wget -O steam_client_steamdeck_stable_steamrt64.manifest "$DeckClientManifest" &> /dev/null
+        else
+            echo "Headcrab Downloading Anatase Client Manifest"
+            wget -O steam_client_steamrt64.manifest "$LinuxClientManifest" &> /dev/null
+        fi
+			echo "" &> /dev/null
+        }
 		
     DownloadClientManifest(){
 	    if steamoscheck; then
 	        echo "Headcrab Downloading Steamos Client Manifest.."
-	        wget -O steam_client_steamdeck_stable_ubuntu12.manifest "$DeckClientManifest" &> /dev/null
+	        wget -O steam_client_steamdeck_stable_steamrt64.manifest "$DeckClientManifest" &> /dev/null
 		elif bazzitecheck; then
 			TrashiteWatMani
+		elif anatasecheck; then
+            AnataseWatMani
 		elif cachyoscheck; then
 			CachyWatMani
 	    else
 	        echo "Headcrab Downloading Linux Client Manifest.."
-	        wget -O steam_client_ubuntu12 "$LinuxClientManifest" &> /dev/null
+	        wget -O steam_client_steamrt64.manifest "$LinuxClientManifest" &> /dev/null
 	    fi
 	        echo "Client Manifest Downloaded"
     }
@@ -494,7 +538,6 @@
         
     prepdowngrade(){
         wheresteamcfg
-        rm package/*
         wheresteampackage
         #wget -O sources.txt "$Sources" &> /dev/null
         DownloadClientManifest
@@ -512,6 +555,10 @@
 			echo "Bazzite Detected"
             echo "Headcrab Bootstrapping SLSsteam.."
            export_sls wheresteam -exitsteam
+		elif anatasecheck; then
+            echo "Anatase Detected"
+            echo "Headcrab Bootstrapping SLSsteam.."
+            export_sls wheresteam -clearbeta -exitsteam
 		elif cachyoscheck; then
 			echo "CachyOS Detected"
             echo "Headcrab Bootstrapping SLSsteam.."
@@ -551,13 +598,11 @@
         if [ -d "$FlatpakSteamInstallDir" ]; then
                 mkdir -p $FlatpakSLSsteamInstallDir
 				mkdir -p $FlatpakCloudRedirectDir
-                cp -f $InstallDir/library-inject.so $FlatpakSLSsteamInstallDir/
                 cp -f $InstallDir/SLSsteam.so $FlatpakSLSsteamInstallDir/
         else
                  mkdir -p $CloudRedirectDir
 				 mkdir -p $SLSsteamInstallDir
                  mkdir -p $SLSsteamConfigDir
-                 cp -f $InstallDir/library-inject.so $SLSsteamInstallDir/
                  cp -f $InstallDir/SLSsteam.so $SLSsteamInstallDir/
             fi
 				echo "" &> /dev/null
@@ -566,10 +611,12 @@
     wheresteamcfg(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
                cd $FlatpakSteamInstallDir/
-			   echo "" &> .steam-disable-steamrt64-client
+			   echo "" &> .steam-enable-steamrt64-client
+			   rm .steam-disable-steamrt64-client
         else
                 cd $SteamInstallDir/
-				echo "" &> .steam-disable-steamrt64-client
+				echo "" &> .steam-enable-steamrt64-client
+			   rm .steam-disable-steamrt64-client
             fi
                 echo "" &> /dev/null
             }
@@ -765,10 +812,10 @@
     export_sls(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
                 copySLSsteam
-                LD_AUDIT=$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/library-inject.so:$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/SLSsteam.so "$@"
+                LD_AUDIT=$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam/SLSsteam.so "$@"
         else
                 copySLSsteam
-                LD_AUDIT=$HOME/.local/share/SLSsteam/library-inject.so:$HOME/.local/share/SLSsteam/SLSsteam.so "$@"
+                LD_AUDIT=$HOME/.local/share/SLSsteam/SLSsteam.so "$@"
         fi
                 echo &> /dev/null
                 }
@@ -959,3 +1006,4 @@ EOF
         }
 
     main
+
