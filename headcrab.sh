@@ -36,8 +36,8 @@
 	cloudredirect="https://runn.i.ng/crghofficial/cloudredirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
     Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
-	Headcrab_Updater="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab.desktop"
-	Headcrab_Icon="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/headcrab.png"
+	Headcrab_Updater="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.desktop"
+	Headcrab_Icon="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.png"
 	
     read_os_release(){
         local f
