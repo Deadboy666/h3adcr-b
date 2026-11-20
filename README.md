@@ -33,7 +33,6 @@ Headcrab is a rootless Steam client compatibility helper
    * Void Linux Based Distros.
  ## Getting Started
  * Installing Headcrab
-* Incase the Redirect Doesnt work.
 ```bash
 curl -fsSL "https://runn.i.ng/Deadboy666/h3adcr-b/refs/heads/halfbaked/headcrab.sh" | bash
 ```
