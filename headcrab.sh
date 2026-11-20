@@ -871,8 +871,8 @@
 		    flatpak remote-add --user --if-not-exists flathub $flathub
 		    flatpak --user update --appstream --noninteractive
 		    flatpak install --user flathub org.kde.Platform//6.10 --assumeyes --noninteractive
-			wget -o cloudredirect.flatpak "$CloudRedirect64" &> /dev/null
-		    flatpak install --user --bundle --reinstall ./cloudredirect.flatpak --assumeyes --noninteractive
+			wget -o CloudRedirect-2.6.6-linux64.2-x86_64.flatpak "$CloudRedirect64" &> /dev/null
+		    flatpak install --user --bundle --reinstall ./CloudRedirect-2.6.6-linux64.2-x86_64.flatpak --assumeyes --noninteractive
 			flatpak --user make-current --arch=x86_64 org.cloudredirect.CloudRedirect linux-steamrt64
 		    update-desktop-database
         #wget -O cloud_redirect.so "$CloudRedirectLib" &> /dev/null
