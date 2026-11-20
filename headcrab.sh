@@ -29,12 +29,11 @@
 	Headcrab_Flatpak="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab_flatpak.sh"
     Headcrab_Flatpak_CR="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/cr-test/headcrab_flatpak.sh"
 	Headcrab_Client="https://runn.i.ng//Deadboy666/SteamTracking/refs/heads/master/ClientExtracted/steam.sh"
-	#CloudRedirectLib="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect.so"
-	#CloudRedirectCLI="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect_cli"
-	CloudRedirect64="https://runn.i.ng/The-J-01/cloudredirect/releases/download/v2.6.6-linux64.2/CloudRedirect-2.6.6-linux64.2-x86_64.flatpak"
+	CloudRedirectLib="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect.so"
+	CloudRedirectCLI="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect_cli"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
-	#cloudredirect="https://runn.i.ng/crghofficial/cloudredirect/blob/gh-pages/cloudredirect.flatpakrepo"
+	cloudredirect="https://runn.i.ng/crghofficial/cloudredirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
     Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
 	Headcrab_Updater="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.desktop"
@@ -867,19 +866,16 @@
         whereCR_Install
 		 echo "Installing Cloud Redirect App"
 		    flatpak remote-delete --user cloudredirect --force
-		    #flatpak remote-add --user --if-not-exists cloudredirect $cloudredirect
+		    flatpak remote-add --user --if-not-exists cloudredirect $cloudredirect
 		    flatpak remote-add --user --if-not-exists flathub $flathub
 		    flatpak --user update --appstream --noninteractive
 		    flatpak install --user flathub org.kde.Platform//6.10 --assumeyes --noninteractive
-			wget -O cloudredirect.flatpak "$CloudRedirect64" &> /dev/null
-		    flatpak install --user --bundle --reinstall ./cloudredirect.flatpak --assumeyes --noninteractive
-			flatpak --user make-current --arch=x86_64 org.cloudredirect.CloudRedirect linux-steamrt64
-			rm cloudredirect.flatpak
+		    flatpak install --user --reinstall org.cloudredirect.CloudRedirect --assumeyes --noninteractive
 		    update-desktop-database
-        #wget -O cloud_redirect.so "$CloudRedirectLib" &> /dev/null
-		#wget -O cloud_redirect_cli "$CloudRedirectCLI" &> /dev/null
-		#chmod 777 cloud_redirect_cli
-        echo "Deploy Latest CloudRedirect In The App"
+        wget -O cloud_redirect.so "$CloudRedirectLib" &> /dev/null
+		wget -O cloud_redirect_cli "$CloudRedirectCLI" &> /dev/null
+		chmod 777 cloud_redirect_cli
+        echo "Latest Cloud Redirect Library Downloaded"
       else
         echo "User Is Not Using Cloud Redirect Skipping.."
       fi
@@ -1010,5 +1006,3 @@ EOF
         }
 
     main
-
-
