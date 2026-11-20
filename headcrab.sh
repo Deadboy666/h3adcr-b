@@ -32,7 +32,6 @@
 	#CloudRedirectLib="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect.so"
 	#CloudRedirectCLI="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect_cli"
 	CloudRedirect64="https://runn.i.ng/cloudredirect/releases/download/v2.6.6-linux64.2/CloudRedirect-2.6.6-linux64.2-x86_64.flatpak"
-	CloudRedirect64Ver="CloudRedirect-2.6.6-linux64.2-x86_64.flatpak"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
 	#cloudredirect="https://runn.i.ng/crghofficial/cloudredirect/blob/gh-pages/cloudredirect.flatpakrepo"
@@ -872,8 +871,8 @@
 		    flatpak remote-add --user --if-not-exists flathub $flathub
 		    flatpak --user update --appstream --noninteractive
 		    flatpak install --user flathub org.kde.Platform//6.10 --assumeyes --noninteractive
-			wget "$CloudRedirect64" &> /dev/null
-		    flatpak install --user --bundle --reinstall ./CloudRedirect-2.6.6-linux64.2-x86_64.flatpak --assumeyes --noninteractive
+			wget -o cloudredirect.flatpak "$CloudRedirect64" &> /dev/null
+		    flatpak install --user --bundle --reinstall ./CloudRedirect64.flatpak --assumeyes --noninteractive
 			flatpak --user make-current --arch=x86_64 org.cloudredirect.CloudRedirect linux-steamrt64
 		    update-desktop-database
         #wget -O cloud_redirect.so "$CloudRedirectLib" &> /dev/null
