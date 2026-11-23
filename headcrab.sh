@@ -6,18 +6,18 @@
     
     #Paths
     SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-	ApplicationDirectory=$HOME/.local/share/applications
-	IconDirectory=$HOME/.local/share/icons/hicolor/48x48/apps
-    SteamInstallDir=$HOME/.steam/steam
-    FlatpakCloudRedirectDir=$HOME/.var/app/com.valvesoftware.Steam/.local/share/CloudRedirect
-	FlatpakSteamInstallDir=$HOME/.var/app/com.valvesoftware.Steam/.steam/steam
-    FlatpakSLSsteamInstallDir=$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam
-    FlatpakSLSsteamConfigDir=$HOME/.var/app/com.valvesoftware.Steam/.config/SLSsteam
-    CloudRedirectDir=$HOME/.local/share/CloudRedirect
-	SLSsteamInstallDir=$HOME/.local/share/SLSsteam
-    SLSsteamConfigDir=$HOME/.config/SLSsteam
-    InstallDir=$SCRIPT_DIR/SLSsteam_Download/bin
-    Headcrab_Downgrader_Path=$HOME/.headcrab
+	ApplicationDirectory="$HOME/.local/share/applications"
+	IconDirectory="$HOME/.local/share/icons/hicolor/48x48/apps"
+    SteamInstallDir="$HOME/.steam/steam"
+    FlatpakCloudRedirectDir="$HOME/.var/app/com.valvesoftware.Steam/.local/share/CloudRedirect"
+	FlatpakSteamInstallDir="$HOME/.var/app/com.valvesoftware.Steam/.steam/steam"
+    FlatpakSLSsteamInstallDir="$HOME/.var/app/com.valvesoftware.Steam/.local/share/SLSsteam"
+    FlatpakSLSsteamConfigDir="$HOME/.var/app/com.valvesoftware.Steam/.config/SLSsteam"
+    CloudRedirectDir="$HOME/.local/share/CloudRedirect"
+	SLSsteamInstallDir="$HOME/.local/share/SLSsteam"
+    SLSsteamConfigDir="$HOME/.config/SLSsteam"
+    InstallDir="$SCRIPT_DIR/SLSsteam_Download/bin"
+    Headcrab_Downgrader_Path="$HOME/.headcrab"
 	
 	#URL'S
 	Headcrab_Downgrade_URL="http://localhost:1666/"
