@@ -104,14 +104,14 @@
         }
 		
 		SetupHeadcrab_Updater(){
-		mkdir -p $ApplicationDirectory
-		mkdir -p $IconDirectory
-		cd $IconDirectory/
+		mkdir -p "$ApplicationDirectory"
+		mkdir -p "$IconDirectory"
+		cd "$IconDirectory/"
 		wget -O headcrab.png "$Headcrab_Icon" &> /dev/null
-		cd $ApplicationDirectory/
+		cd "$ApplicationDirectory/"
 			wget -O headcrab.desktop "$Headcrab_Updater" &> /dev/null
 		    chmod +x headcrab.desktop
-			update-desktop-database $ApplicationDirectory
+			update-desktop-database "$ApplicationDirectory"
 			echo "Headcrab Updater Now In Your Applications Menu"
 			echo "Can Open Up Headcrab Updater To Update To Latest Version."
 	}
@@ -497,8 +497,8 @@
     }
     
     download_dgsc(){
-        mkdir -p $Headcrab_Downgrader_Path
-        cd $Headcrab_Downgrader_Path/
+        mkdir -p "$Headcrab_Downgrader_Path"
+        cd "$Headcrab_Downgrader_Path/"
         if [ -f "$Headcrab_Downgrader_Path/dgsc" ]; then
             echo "Headcrab_dgsc Downloaded Already."
         else
@@ -510,8 +510,8 @@
         }
         
         download_dlm(){
-        mkdir -p $Headcrab_Downgrader_Path
-        cd $Headcrab_Downgrader_Path/
+        mkdir -p "$Headcrab_Downgrader_Path"
+        cd "$Headcrab_Downgrader_Path/"
         if [ -f "$Headcrab_Downgrader_Path/dlm" ]; then
             echo "Headcrab_dlm Downloaded Already."
         else
@@ -526,7 +526,7 @@
         download_dlm
         echo "Running Fetching Client Update Headcrab_dlm.."
         wheresteampackage
-        $Headcrab_Downgrader_Path/dlm --input-file sources.txt --max-concurrent 16
+        "$Headcrab_Downgrader_Path"/dlm --input-file sources.txt --max-concurrent 16
         echo "Headcrab_dlm Fetched Client Update"
         }
         
@@ -534,7 +534,7 @@
         download_dgsc
         echo "Running Headcrab_dgsc.."
         wheresteampackage
-        $Headcrab_Downgrader_Path/dgsc --port 1666 --silent & sleep 1s "$@"
+        "$Headcrab_Downgrader_Path"/dgsc --port 1666 --silent & sleep 1s "$@"
         }
         
     prepdowngrade(){
@@ -597,25 +597,25 @@
             
     wheresteamdir(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
-                mkdir -p $FlatpakSLSsteamInstallDir
-				mkdir -p $FlatpakCloudRedirectDir
-                cp -f $InstallDir/SLSsteam.so $FlatpakSLSsteamInstallDir/
+                mkdir -p "$FlatpakSLSsteamInstallDir"
+				mkdir -p "$FlatpakCloudRedirectDir"
+                cp -f "$InstallDir"/SLSsteam.so "$FlatpakSLSsteamInstallDir/"
         else
-                 mkdir -p $CloudRedirectDir
-				 mkdir -p $SLSsteamInstallDir
-                 mkdir -p $SLSsteamConfigDir
-                 cp -f $InstallDir/SLSsteam.so $SLSsteamInstallDir/
+                 mkdir -p "$CloudRedirectDir"
+				 mkdir -p "$SLSsteamInstallDir"
+                 mkdir -p "$SLSsteamConfigDir"
+                 cp -f "$InstallDir"/SLSsteam.so "$SLSsteamInstallDir/"
             fi
 				echo "" &> /dev/null
             }
             
     wheresteamcfg(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
-               cd $FlatpakSteamInstallDir/
+               cd "$FlatpakSteamInstallDir/"
 			   echo "" &> .steam-enable-steamrt64-client
 			   rm .steam-disable-steamrt64-client
         else
-                cd $SteamInstallDir/
+                cd "$SteamInstallDir/"
 				echo "" &> .steam-enable-steamrt64-client
 			   rm .steam-disable-steamrt64-client
             fi
@@ -624,9 +624,9 @@
 			
 	wheresteampackage(){
         if [ -d "$FlatpakSteamInstallDir" ]; then
-               cd $FlatpakSteamInstallDir/package
+               cd "$FlatpakSteamInstallDir"/package
         else
-                cd $SteamInstallDir/package
+                cd "$SteamInstallDir"/package
             fi
                 echo "" &> /dev/null
             }
@@ -634,10 +634,10 @@
     whereSLSsteamconfig(){
         if [ -d "$FlatpakSLSsteamConfigDir" ]; then
                mkdir -p $FlatpakSLSsteamConfigDir
-               cd $FlatpakSLSsteamConfigDir/
+               cd "$FlatpakSLSsteamConfigDir"/
         else
-                mkdir -p $SLSsteamConfigDir
-                cd $SLSsteamConfigDir/
+                mkdir -p "$SLSsteamConfigDir"
+                cd "$SLSsteamConfigDir/"
             fi
                 echo "" &> /dev/null
             }
@@ -789,7 +789,7 @@
 
     downloadSLSsteam(){
             echo "Downloading Latest SLSsteam.."
-            mkdir -p $SCRIPT_DIR/SLSsteam_Download
+            mkdir -p "$SCRIPT_DIR"/SLSsteam_Download
             cd SLSsteam_Download
             local TAG
             TAG=$(curl -sSL --connect-timeout 15 --max-time 30 \
@@ -807,7 +807,7 @@
             wget -O netsock.so \
                 "https://cdn.jsdelivr.net/gh/yesyes0649/steamnetsock-patch@builds/fix.so" &> /dev/null
                 echo "Downloaded Latest Netsock Lib."
-				cd $SCRIPT_DIR/
+				cd "$SCRIPT_DIR/"
         }
     
     export_sls(){
@@ -824,21 +824,21 @@
     extractSLSsteam(){
 		downloadnetsock
         downloadSLSsteam
-         7z x $SCRIPT_DIR/SLSsteam_Download/SLSsteam-Any.7z -aoa > /dev/null
+         7z x "$SCRIPT_DIR"/SLSsteam_Download/SLSsteam-Any.7z -aoa > /dev/null
          updateSLSsteamConfig "$SCRIPT_DIR/SLSsteam_Download/res/config.yaml"
-         mv -f tools $InstallDir/tools
+         mv -f tools "$InstallDir"/tools
          rm -rf res
          rm setup.sh
          rm -rf docs
          rm SLSsteam-Any.7z
 		 echo "SLSsteam Downloaded: Latest"
-		 cd $InstallDir/
+		 cd "$InstallDir/"
          }
 
     copySLSsteam(){
         extractSLSsteam
         wheresteamdir
-        rm -rf $InstallDir
+        rm -rf "$InstallDir"
         }
 
     InstallSLSsteam(){
@@ -853,9 +853,9 @@
         
     whereCR_Install(){
        if [ -d "$FlatpakCloudRedirectDir" ]; then
-               cd $FlatpakSteamInstallDir
+               cd "$FlatpakSteamInstallDir"
         else
-                cd $CloudRedirectDir
+                cd "$CloudRedirectDir"
             fi
                 echo "" &> /dev/null
                 }
@@ -932,13 +932,13 @@ EOF
     checkcrsteam(){
       if crconfigcheck; then
         echo "Fetching Headcrab-CR Client"
-        cd $SteamInstallDir/
+        cd "$SteamInstallDir/"
         rm steam.sh
         wget -O steam.sh "$Headcrab_Native_CR" &> /dev/null
         echo "Patched Client With Headcrab-CR"
       else
         echo "Fetching Headcrab Client"
-        cd $SteamInstallDir/
+        cd "$SteamInstallDir/"
         rm steam.sh
         wget -O steam.sh "$Headcrab_Native" &> /dev/null
         echo "Patched Client With Headcrab"
@@ -955,7 +955,7 @@ EOF
         echo "Patched Client With Headcrab-CR"
       else
         echo "Fetching Headcrab Client"
-        cd $FlatpakSteamInstallDir/
+        cd "$FlatpakSteamInstallDir/"
         rm steam.sh
         wget -O steam.sh "$Headcrab_Flatpak" &> /dev/null
         echo "Patched Client With Headcrab"
@@ -964,7 +964,7 @@ EOF
         }
         
     patchflatpaksteam(){
-        cd $FlatpakSteamInstallDir/
+        cd "$FlatpakSteamInstallDir/"
         wget -O client.sh "$Headcrab_Client" &> /dev/null
             chmod 777 steam.sh
             checkcrflatpaksteam
@@ -974,7 +974,7 @@ EOF
         }
 
     patchlocalsteam(){
-        cd $SteamInstallDir/
+        cd "$SteamInstallDir/"
         wget -O client.sh "$Headcrab_Client" &> /dev/null
         chmod 777 steam.sh
 			checkcrsteam
