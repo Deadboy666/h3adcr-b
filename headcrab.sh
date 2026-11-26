@@ -34,6 +34,7 @@
 	CloudRedirect64="https://runn.i.ng/The-J-01/cloudredirect/releases/download/v2.6.6-linux64.5/CloudRedirect-2.6.6-linux64.5-x86_64.flatpak"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
+	netsock="https://runn.i.ng/yesyes0649/steamnetsock-patch/releases/download/latest/fix.so"
 	#cloudredirect="https://runn.i.ng/crghofficial/cloudredirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
     Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
@@ -797,15 +798,15 @@
                 "https://github.com/AceSLS/SLSsteam/releases/latest" 2>/dev/null)
             TAG="${TAG##*/}"
             wget -O SLSsteam-Any.7z \
-                "https://github.com/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any-release.7z" &> /dev/null
+                "https://runn.i.ng/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any-release.7z" &> /dev/null
         }
 		
 		downloadnetsock(){
             echo "Downloading Latest Netsock Lib.."
-            mkdir -p ~/.config/SLSsteam/tools/netsock
-            cd ~/.config/SLSsteam/tools/netsock
+            mkdir -p "$HOME"/.config/SLSsteam/tools/netsock
+            cd "$HOME"/.config/SLSsteam/tools/netsock
             wget -O netsock.so \
-                "https://cdn.jsdelivr.net/gh/yesyes0649/steamnetsock-patch@builds/fix.so" &> /dev/null
+                "$netsock" &> /dev/null
                 echo "Downloaded Latest Netsock Lib."
 				cd "$SCRIPT_DIR/"
         }
