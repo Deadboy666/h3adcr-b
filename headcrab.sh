@@ -31,13 +31,14 @@
 	Headcrab_Client="https://runn.i.ng//Deadboy666/SteamTracking/refs/heads/master/ClientExtracted/steam.sh"
 	CloudRedirectLib="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect.so"
 	CloudRedirectCLI="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect_cli"
+	netsock="https://runn.i.ng/yesyes0649/steamnetsock-patch/releases/download/latest/fix.so"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
 	cloudredirect="https://runn.i.ng/crghofficial/cloudredirect/blob/gh-pages/cloudredirect.flatpakrepo"
     flathub="https://dl.flathub.org/repo/flathub.flatpakrepo"
     Sources="https://cdn.jsdelivr.net/gh/Deadboy666/h3adcr-b-modul3s@refs/heads/main/stable-sources.txt"
-	Headcrab_Updater="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.desktop"
-	Headcrab_Icon="https://runn.i.ng//Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.png"
+	Headcrab_Updater="https://runn.i.ng/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.desktop"
+	Headcrab_Icon="https://runn.i.ng/Deadboy666/h3adcr-b-modul3s/refs/heads/main/headcrab.png"
 	
     read_os_release(){
         local f
@@ -796,7 +797,7 @@
                 "https://github.com/AceSLS/SLSsteam/releases/latest" 2>/dev/null)
             TAG="${TAG##*/}"
             wget -O SLSsteam-Any.7z \
-                "https://github.com/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any-release.7z" &> /dev/null
+                "https://runn.i.ng/AceSLS/SLSsteam/releases/download/$TAG/SLSsteam-Any-release.7z" &> /dev/null
         }
 		
 		downloadnetsock(){
@@ -804,7 +805,7 @@
             mkdir -p ~/.config/SLSsteam/tools/netsock
             cd ~/.config/SLSsteam/tools/netsock
             wget -O netsock.so \
-                "https://cdn.jsdelivr.net/gh/yesyes0649/steamnetsock-patch@builds/fix.so" &> /dev/null
+                "$netsock" &> /dev/null
                 echo "Downloaded Latest Netsock Lib."
 				cd "$SCRIPT_DIR"/
         }
