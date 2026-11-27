@@ -31,7 +31,7 @@
 	Headcrab_Client="https://runn.i.ng//Deadboy666/SteamTracking/refs/heads/master/ClientExtracted/steam.sh"
 	#CloudRedirectLib="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect.so"
 	#CloudRedirectCLI="https://runn.i.ng/crghofficial/cloudredirect/releases/download/v2.6.5/cloud_redirect_cli"
-	CloudRedirect64="https://runn.i.ng/The-J-01/cloudredirect/releases/download/v2.6.6-linux64.5/CloudRedirect-2.6.6-linux64.5-x86_64.flatpak"
+	CloudRedirect64="https://runn.i.ng/The-J-01/cloudredirect/releases/download/v2.6.6-linux64.6/CloudRedirect-2.6.6-linux64.6-x86_64.flatpak"
     dgsc="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dgsc"
     dlm="https://github.com/Deadboy666/h3adcr-b-modul3s/raw/refs/heads/main/dlm"
 	netsock="https://runn.i.ng/yesyes0649/steamnetsock-patch/releases/download/latest/fix.so"
